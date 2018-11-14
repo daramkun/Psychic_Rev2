@@ -1,0 +1,486 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Talker_Lisa" xml:space="preserve">
+    <value>[리사]</value>
+  </data>
+  <data name="Talker_MrE" xml:space="preserve">
+    <value>[Mr. E]</value>
+  </data>
+  <data name="Talker_Steve" xml:space="preserve">
+    <value>[스티브]</value>
+  </data>
+  <data name="Talker_Steve_Unknown" xml:space="preserve">
+    <value>[???]</value>
+  </data>
+  <data name="Document_01_Desc" xml:space="preserve">
+    <value>현재 우리가 리사를 감금한지 20일이 경과했다. 현재 그녀의 초능력은 상상을 초월할 정도로 매우 강력하였다. 지금 당장은 활용하기엔 힘들지만 그녀에 대해서 더 정밀한 조사가 가능하다면 군사용으로도 활용이 가능할 것 같다.</value>
+  </data>
+  <data name="Document_01_Title" xml:space="preserve">
+    <value>리사 연구 보고서-01</value>
+  </data>
+  <data name="Document_02_Desc" xml:space="preserve">
+    <value>현재 그녀를 연구하고 있는 동안에 많은 사상자가 발생하였다. 어제도 3명이나 죽고 이 글을 쓰는 동안에도 1명이 죽었다. 이렇게 무리하면서 까지 그들이 원하는 것은 도대체 무엇일까?</value>
+  </data>
+  <data name="Document_02_Title" xml:space="preserve">
+    <value>의문의 보고서</value>
+  </data>
+  <data name="Document_03_Desc" xml:space="preserve">
+    <value>그녀의 어렸을 때는 정말 평범한 어린아이와 같았다. 초능력을 사용하는 것을 제외하고 그녀는 무의식적으로 초능력을 사용했었고 그것을 연구하기 위해서 연구실에 감금시키고 온갖 실험을 강행하였다. 그녀가 혼수상태에 빠져서야 그들은 실험을 중단하기 이르렀다.</value>
+  </data>
+  <data name="Document_03_Title" xml:space="preserve">
+    <value>리사 연구 보고서-02</value>
+  </data>
+  <data name="Document_04_Desc" xml:space="preserve">
+    <value>혼수상태에서 깨어난 그녀는 이미 평범한 인간이 되어있었다. 연기일줄 알았지만 실제로 그녀는 초능력을 완전히 상실해버린 것이다. 그때서야 정부에서는 그녀를 죽이기로 했으나 죽이기 전날 밤에 누군가가 그녀를 빼돌리게 되었고 그녀에 대해서는 그 이후로는 소식이 없다.</value>
+  </data>
+  <data name="Document_04_Title" xml:space="preserve">
+    <value>리사 연구 보고서-03</value>
+  </data>
+  <data name="Document_05_Desc" xml:space="preserve">
+    <value>10월 23일에 리사를 다시 발견했을 때는 아무런 징조가 없었으나 12월 초부터 그녀는 어느새 초능력을 사용하고 있었다. 그러나 정작 본인은 모르고 있는듯하나 정부에서 눈치채기 전에 우리가 먼저 그녀의 신병을 확보해야 한다.</value>
+  </data>
+  <data name="Document_05_Title" xml:space="preserve">
+    <value>회의록</value>
+  </data>
+  <data name="Document_06_Desc" xml:space="preserve">
+    <value>어젯밤 GH사의 비밀연구소에서 초능력자들을 발견했다는 정보를 입수하였다. 아마도 그들은 초능력자를 이용해서 군용무기를 만들려는 속셈인 듯 하다. 초능력자의 신병확보 후에 연구소를 완전파괴시켜야 한다. 만약 초능력자의 신병확보가 불가능하면 사살하여도 상관없다.</value>
+  </data>
+  <data name="Document_06_Title" xml:space="preserve">
+    <value>작전설명쪽지</value>
+  </data>
+  <data name="Document_07_Desc" xml:space="preserve">
+    <value>그를 맨 처음 데려왔을 때에는 누구도 그가 사람을 죽일 줄은 몰랐을 것이다. 그러나 그는 이제 실험을 견뎌내지 못하고 폭주하여 어제도 4명이나 죽였고 일주일 전에는 23명의 연구원들이 죽거나 다쳤다. 그렇지만 그도 리사보다는 나은 편이다.</value>
+  </data>
+  <data name="Document_07_Title" xml:space="preserve">
+    <value>스티브 연구 보고서</value>
+  </data>
+  <data name="Document_08_Desc" xml:space="preserve">
+    <value>만약 작전 시작 후 8시간이 지나도 목표를 확보하지 못할 시에 건물 자체를 폭파시킨다.</value>
+  </data>
+  <data name="Document_08_Title" xml:space="preserve">
+    <value>작전지침서</value>
+  </data>
+  <data name="Document_09_Desc" xml:space="preserve">
+    <value>누나가 이 편지를 봤을 때엔 난 이미 죽어있을거야. 알고 보니 누나랑 나는 초능력자를 만들기 위해 서 일부러 인공 수정한 쌍둥이 남매였어. 그리고는 우리 남매를 무자비하게 실험을 했지. 이제 그 사실을 세상에 알릴 거야. 이제 그들은… (훼손되어 읽을 수가 없다.)</value>
+  </data>
+  <data name="Document_09_Title" xml:space="preserve">
+    <value>리사에게</value>
+  </data>
+  <data name="Document_10_Desc" xml:space="preserve">
+    <value>12월에 초능력자에게 접근한 남자는 코드명 Mr. E로 칭한다. 입수한 정보에 따르면 그는 세계정복이라는 터무니 없는 망상을 가지고 있었다. 하지만 그는 실제로 웬만한 후진국보다 큰 세력을 가지고 있었고 이제는 초능력자 마저도 그의 손아귀에 넣으려고 하고 있다.</value>
+  </data>
+  <data name="Document_10_Title" xml:space="preserve">
+    <value>코드명 Mr. E에 대해서</value>
+  </data>
+  <data name="Document_DidntTakeDoc" xml:space="preserve">
+    <value>얻지 못한 문서</value>
+  </data>
+  <data name="Message_DoorLocked" xml:space="preserve">
+    <value>문이 잠겨있네.</value>
+  </data>
+  <data name="Message_Ending_Scene_1" xml:space="preserve">
+    <value>뒤를 조심하라고?</value>
+  </data>
+  <data name="Message_Ending_Scene_2" xml:space="preserve">
+    <value>꺄악!</value>
+  </data>
+  <data name="Message_Ending_Scene_3" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="Message_FailedSave" xml:space="preserve">
+    <value>저장하지 못하였습니다.</value>
+  </data>
+  <data name="Message_GotDocument" xml:space="preserve">
+    <value>{0}번 문서를 얻었습니다.</value>
+  </data>
+  <data name="Message_Help_Alert" xml:space="preserve">
+    <value>경보기구나. 투명화를 사용해야겠다.</value>
+  </data>
+  <data name="Message_Help_Compressor" xml:space="preserve">
+    <value>압축기? 조심해서 지나가자.</value>
+  </data>
+  <data name="Message_Help_Door" xml:space="preserve">
+    <value>문이구나. 위쪽 화살표 키로 들어가자.</value>
+  </data>
+  <data name="Message_Help_Teleport_Cliff" xml:space="preserve">
+    <value>낭떠러지인가... 순간이동을 써야겠다.</value>
+  </data>
+  <data name="Message_Help_Teleport_Mirror" xml:space="preserve">
+    <value>거울인가... 순간이동을 써야겠다.</value>
+  </data>
+  <data name="Message_Help_Trap" xml:space="preserve">
+    <value>앞에 있는건 덫인가... 저 군인을 이용하자.</value>
+  </data>
+  <data name="Message_Opening_Scene_1_1" xml:space="preserve">
+    <value>2009년 1월 1일 올해도 새해가 밝았다.</value>
+  </data>
+  <data name="Message_Opening_Scene_1_2" xml:space="preserve">
+    <value>평소와 다를 것 없는 일상.</value>
+  </data>
+  <data name="Message_Opening_Scene_2_1" xml:space="preserve">
+    <value>하지만...</value>
+  </data>
+  <data name="Message_Opening_Scene_2_2" xml:space="preserve">
+    <value>그 일상은 조금씩</value>
+  </data>
+  <data name="Message_Opening_Scene_3_1" xml:space="preserve">
+    <value>일그러져 나에게로 다가왔다.</value>
+  </data>
+  <data name="Message_Saved" xml:space="preserve">
+    <value>저장되었습니다.</value>
+  </data>
+  <data name="Message_Event_10_1" xml:space="preserve">
+    <value>15분 쯤 늦었군요.</value>
+  </data>
+  <data name="Message_Event_10_2" xml:space="preserve">
+    <value>검은 양복! 여기는 대체 뭐 하는 곳이지? 단순한 연구실로는 보이지 않는데?</value>
+  </data>
+  <data name="Message_Event_10_3" xml:space="preserve">
+    <value>글쎄요... 제가 만들었지만 저도 이곳이 도대체 뭐하는 곳인지 모르겠습니다. 역시 방해꾼의 역할이 큰 것 같군요. 물론 덕분에 좋은 구경도 합니다만. 이런, 저는 아무래도 당신을 앞질러 간 사람을 만나야 되겠군요.</value>
+  </data>
+  <data name="Message_Event_10_4" xml:space="preserve">
+    <value>그럼 이만...</value>
+  </data>
+  <data name="Message_Event_10_5" xml:space="preserve">
+    <value>도대체 아는게 뭔지... 15분 쯤 늦었다고?</value>
+  </data>
+  <data name="Message_Event_10_6" xml:space="preserve">
+    <value>혹시 스티브가 여길 15분 전에 지나쳤다는 얘긴가?</value>
+  </data>
+  <data name="Message_Event_17_1" xml:space="preserve">
+    <value>여기있었군, 스티브.</value>
+  </data>
+  <data name="Message_Event_17_10" xml:space="preserve">
+    <value>그 일이라는게 사람들을 죽이는 거야? 아무리 우리를 연구에 이용했다지만 그렇다고 무고한 사람들까지 죽일 필요까진 없잖아?</value>
+  </data>
+  <data name="Message_Event_17_11" xml:space="preserve">
+    <value>무고하다니... </value>
+  </data>
+  <data name="Message_Event_17_12" xml:space="preserve">
+    <value>그런가... 그놈인가?</value>
+  </data>
+  <data name="Message_Event_17_13" xml:space="preserve">
+    <value>충고하나 하지.</value>
+  </data>
+  <data name="Message_Event_17_14" xml:space="preserve">
+    <value>Mr. E, 그녀석은 믿지마.</value>
+  </data>
+  <data name="Message_Event_17_15" xml:space="preserve">
+    <value>Mr. E? 검은 양복을 말하는 건가?</value>
+  </data>
+  <data name="Message_Event_17_2" xml:space="preserve">
+    <value>아까부터 날 쫓아온 이유가 뭐야?</value>
+  </data>
+  <data name="Message_Event_17_3" xml:space="preserve">
+    <value>너에 관한 것과 나에 관한 것.</value>
+  </data>
+  <data name="Message_Event_17_4" xml:space="preserve">
+    <value>글쎄, 나도 자세히는 몰라. 아직 조사중이고.</value>
+  </data>
+  <data name="Message_Event_17_5" xml:space="preserve">
+    <value>무슨...?</value>
+  </data>
+  <data name="Message_Event_17_6" xml:space="preserve">
+    <value>이렇게 된 김에 나와 같이 이곳을 나가자. 나는 이런 곳에서 썩을 순 없다고.</value>
+  </data>
+  <data name="Message_Event_17_7" xml:space="preserve">
+    <value>거기까지.</value>
+  </data>
+  <data name="Message_Event_17_8" xml:space="preserve">
+    <value>협상 결렬이군...</value>
+  </data>
+  <data name="Message_Event_17_9" xml:space="preserve">
+    <value>나는 여기서 나가야 해. 나가서 꼭 해야할 일이 있다고.</value>
+  </data>
+  <data name="Message_Event_1_1" xml:space="preserve">
+    <value>여기는 도대체...</value>
+  </data>
+  <data name="Message_Event_1_2" xml:space="preserve">
+    <value>드디어 깨어나셨군요. 당신을 기다렸습니다.</value>
+  </data>
+  <data name="Message_Event_1_3" xml:space="preserve">
+    <value>당신은 누구시죠?</value>
+  </data>
+  <data name="Message_Event_1_4" xml:space="preserve">
+    <value>차차 알아가게 될 겁니다. 그러면 저는 이만...</value>
+  </data>
+  <data name="Message_Event_1_5" xml:space="preserve">
+    <value>아! 예전과는 다른 뭔가가 느껴지지 않습니까?</value>
+  </data>
+  <data name="Message_Event_1_6" xml:space="preserve">
+    <value>저 자식... 아무래도 밖으로 나가야 될 거 같은데...</value>
+  </data>
+  <data name="Message_Event_20_1" xml:space="preserve">
+    <value>드디어 오셨군요.</value>
+  </data>
+  <data name="Message_Event_20_2" xml:space="preserve">
+    <value>Mr. E...</value>
+  </data>
+  <data name="Message_Event_20_3" xml:space="preserve">
+    <value>예, 제가 Mr. E 입니다. 스티브에게서 저에 대해서 들었죠?</value>
+  </data>
+  <data name="Message_Event_20_4" xml:space="preserve">
+    <value>전혀...</value>
+  </data>
+  <data name="Message_Event_20_5" xml:space="preserve">
+    <value>스티브가 아직도 살아있다니 정말 아쉽군요. 빨리 처치하시기 바랍니다. 그는 제정신이 아니니까요.</value>
+  </data>
+  <data name="Message_Event_20_6" xml:space="preserve">
+    <value>뻔한 속임수에 내가 넘어갈거라 생각하면 오산이지.</value>
+  </data>
+  <data name="Message_Event_24_1" xml:space="preserve">
+    <value>혹시 스티브?</value>
+  </data>
+  <data name="Message_Event_2_1" xml:space="preserve">
+    <value>도대체 내 몸이 어떻게 되어버린 거야?</value>
+  </data>
+  <data name="Message_Event_3_1" xml:space="preserve">
+    <value>도대체 여기서는 무슨 일이 벌어지고 있는 거지?</value>
+  </data>
+  <data name="Message_Event_3_2" xml:space="preserve">
+    <value>아무래도 여긴 평범한 연구소가 아닌 것 같아.</value>
+  </data>
+  <data name="Message_Event_4_1" xml:space="preserve">
+    <value>당신은?</value>
+  </data>
+  <data name="Message_Event_4_2" xml:space="preserve">
+    <value>이제 슬슬 힘에 눈을 뜨셨겠죠? 하지만 저희는 아직 더 알고 싶은것이 많습니다. 좀 더 고생을 해주셔야 할 것 같군요.</value>
+  </data>
+  <data name="Message_Event_4_3" xml:space="preserve">
+    <value>아! 제 앞에서는 당신의 힘이 통하진 않을겁니다. 그 점 참고해두시길...</value>
+  </data>
+  <data name="Message_Event_4_4" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="Message_Event_5_1" xml:space="preserve">
+    <value>어? 아직도 여기 민간인이...</value>
+  </data>
+  <data name="Message_Event_5_10" xml:space="preserve">
+    <value>아뇨 괜찮습니다. 가까운 곳에 의무실이 있던거 같은데...</value>
+  </data>
+  <data name="Message_Event_5_11" xml:space="preserve">
+    <value>그럼 전 이만...</value>
+  </data>
+  <data name="Message_Event_5_12" xml:space="preserve">
+    <value>도대체... 이런 곳 어디에 의무실이 있다는 건지...</value>
+  </data>
+  <data name="Message_Event_5_2" xml:space="preserve">
+    <value>으윽...</value>
+  </data>
+  <data name="Message_Event_5_3" xml:space="preserve">
+    <value>저기... 당신은 누구죠?</value>
+  </data>
+  <data name="Message_Event_5_4" xml:space="preserve">
+    <value>저는 스티브라고 합니다. 혹시 당신도 여기 감금당했나요?</value>
+  </data>
+  <data name="Message_Event_5_5" xml:space="preserve">
+    <value>아마도 그런거 같은데요...</value>
+  </data>
+  <data name="Message_Event_5_6" xml:space="preserve">
+    <value>역시... 그때 돈을 갚았어야 했는데!</value>
+  </data>
+  <data name="Message_Event_5_7" xml:space="preserve">
+    <value>저기요 혹시 여기서 무슨일이 있었는지 알고 계세요?</value>
+  </data>
+  <data name="Message_Event_5_8" xml:space="preserve">
+    <value>아뇨 저는 그때 기절해버려서 아무것도 모르... 콜록 콜록</value>
+  </data>
+  <data name="Message_Event_5_9" xml:space="preserve">
+    <value>피가 나네요! 어서 응급처치를...</value>
+  </data>
+  <data name="Message_Event_6_1" xml:space="preserve">
+    <value>젠장 역시 그 녀석을 잡아 뒀어야 했어! 다음에 만나면 반드시 잡아주마!</value>
+  </data>
+  <data name="Message_Event_7_1" xml:space="preserve">
+    <value>다시 만나는군.</value>
+  </data>
+  <data name="Message_Event_7_10" xml:space="preserve">
+    <value>기다려! 뭐야 저녀석 자기 할 말만 하고 가버리고...</value>
+  </data>
+  <data name="Message_Event_7_11" xml:space="preserve">
+    <value>혹시 그 녀석이 스티브?</value>
+  </data>
+  <data name="Message_Event_7_2" xml:space="preserve">
+    <value>오랜만입니다. 그동안 건강히 지냈는지? 뭐 아직 장난이 덜하군요.</value>
+  </data>
+  <data name="Message_Event_7_3" xml:space="preserve">
+    <value>(역시 멋대로 지껄이는군)</value>
+  </data>
+  <data name="Message_Event_7_4" xml:space="preserve">
+    <value>아직 당신의 동료를 만나보지 못했습니까? 이 건물에 한 명 더 있는 걸로 알고 있습니다만.</value>
+  </data>
+  <data name="Message_Event_7_5" xml:space="preserve">
+    <value>?!</value>
+  </data>
+  <data name="Message_Event_7_6" xml:space="preserve">
+    <value>여기에 있는 사람들을 죽인 건 그라고 알고 있는 데요?</value>
+  </data>
+  <data name="Message_Event_7_7" xml:space="preserve">
+    <value>도대체 무슨 말을 하려는 거죠?</value>
+  </data>
+  <data name="Message_Event_7_8" xml:space="preserve">
+    <value>아마 그는 이곳을 나가면 모든 사람들을 죽이려 할테죠.</value>
+  </data>
+  <data name="Message_Event_7_9" xml:space="preserve">
+    <value>아마도요. 그것을 막을 수 있는 사람은 당신 밖에 없는 듯 싶습니다.</value>
+  </data>
+  <data name="Message_Event_8_1" xml:space="preserve">
+    <value>여기 있는 것들 모두 스티브의 짓이겠지? 일단 그 검은 양복 녀석 말은 맞는 것 같긴 한데...</value>
+  </data>
+  <data name="Message_Event_8_2" xml:space="preserve">
+    <value>아무래도 스티브를 막아야겠어.</value>
+  </data>
+  <data name="Message_Event_9_1" xml:space="preserve">
+    <value>드디어 만났군.</value>
+  </data>
+  <data name="Message_Event_9_2" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="Message_Event_9_3" xml:space="preserve">
+    <value>그건 그렇고 너의 목적이 뭐야?</value>
+  </data>
+  <data name="Message_Event_9_4" xml:space="preserve">
+    <value>아직 생각한 것은 없어. 그저...</value>
+  </data>
+  <data name="Message_Event_9_5" xml:space="preserve">
+    <value>그저?</value>
+  </data>
+  <data name="Message_Event_9_6" xml:space="preserve">
+    <value>이곳에서 벗어나고 싶을 뿐이야.</value>
+  </data>
+  <data name="Message_Event_9_7" xml:space="preserve">
+    <value>또 사라져버렸군. 역시 나와 같은 능력을 사용하는 건가?</value>
+  </data>
+  <data name="Option_Text" xml:space="preserve">
+    <value>&lt;환경설정&gt;
+소리 : ON  OFF</value>
+  </data>
+  <data name="Talker_MrE_Unknown" xml:space="preserve">
+    <value>[???]</value>
+  </data>
+  <data name="Credit_Description" xml:space="preserve">
+    <value>Team ReplingCube
+&lt;기획&gt;김승민
+&lt;그래픽&gt;윤성진
+&lt;프로그래밍&gt;
+진재연
+김여원</value>
+  </data>
+</root>

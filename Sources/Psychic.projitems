@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>4210ea30-673c-4f49-85a3-789eae34b416</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Psychic</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Components\SpriteTwinkle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Tile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Input\InputManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Message.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\EndingScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\GameScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\IntroScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\LogoScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\MenuScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Scenes\OpeningScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Static\GameSceneParameter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Static\Options.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Static\StageTileInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\MessageSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\SpriteTwinkleSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\TileRenderSystem.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+</Project>

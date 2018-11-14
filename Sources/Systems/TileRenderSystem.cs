@@ -17,7 +17,7 @@ namespace Psychic.Systems
 		SpriteBatch spriteBatch;
 
 		public bool IsParallelExecution => false;
-		public int Order => int.MaxValue - 256;
+		public int Order => int.MaxValue - 257;
 
 		public bool IsTarget ( Entity entity ) => entity.HasComponent<Tile> ();
 
@@ -41,7 +41,7 @@ namespace Psychic.Systems
 				var transform = cameraEntity.GetComponent<Transform2D> ();
 				cameraMatrix = Matrix.CreateTranslation ( new Vector3 ( -transform.Position, 0 ) );
 			}
-			spriteBatch.Begin ( samplerState: SamplerState.PointClamp, transformMatrix: cameraMatrix );
+			spriteBatch.Begin ( SpriteSortMode.Deferred, samplerState: SamplerState.PointClamp, transformMatrix: cameraMatrix );
 		}
 
 		public void Execute ( Entity entity, GameTime gameTime )

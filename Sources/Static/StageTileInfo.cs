@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Psychic.Components;
+using Psychic.Properties;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -108,6 +111,104 @@ namespace Psychic.Static
 				case 11: return Stage11;
 				case 12: return Stage12;
 				default: return null;
+			}
+		}
+
+		private static IEnumerable<Message> SplitText ( SpriteFont font, string talker, string text )
+		{
+			foreach ( var txt in Message.CalculateMessageTextArea ( text, font ) )
+			{
+				Message msg = new Message ();
+				msg.Font = font;
+				msg.OverlayImage = null;
+				msg.Name = talker;
+				msg.Text = txt;
+				yield return msg;
+			}
+		}
+
+		public static IEnumerable<Message> GetStageEventMessage ( SpriteFont font, int stage )
+		{
+			switch ( stage )
+			{
+				case 1:
+					{
+						foreach ( var msg in SplitText ( font, Resources.Talker_Lisa, Resources.Message_Event_1_1 ) )
+							yield return msg;
+						foreach ( var msg in SplitText ( font, Resources.Talker_MrE_Unknown, Resources.Message_Event_1_2 ) )
+							yield return msg;
+					}
+					break;
+
+				case 2:
+					{
+
+					}
+					break;
+
+				case 3:
+					{
+
+					}
+					break;
+
+				case 4:
+					{
+
+					}
+					break;
+
+				case 5:
+					{
+
+					}
+					break;
+
+				case 6:
+					{
+
+					}
+					break;
+
+				case 7:
+					{
+
+					}
+					break;
+
+				case 8:
+					{
+
+					}
+					break;
+
+				case 9:
+					{
+
+					}
+					break;
+
+				case 10:
+					{
+
+					}
+					break;
+
+				case 11:
+					{
+
+					}
+					break;
+
+				case 12:
+					{
+
+					}
+					break;
+
+				default:
+					yield return null;
+					break;
 			}
 		}
 	}

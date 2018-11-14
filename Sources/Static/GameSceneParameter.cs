@@ -6,6 +6,8 @@ namespace Psychic.Static
 {
 	public static class GameSceneParameter
 	{
-		public static int Stage = 0;
+		public static int Stage = 1;
+		public static int HitPoint = 10;
+		public static int ManaPoint = 10;
 	}
 }

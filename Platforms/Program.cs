@@ -25,7 +25,7 @@ namespace Psychic
 				screenSize: new Vector2 ( 176, 178 ),
 				fullscreen: false,
 				exclusiveFullscreen: false,
-				firstSceneName: "MenuScene",
+				firstSceneName: "GameScene",
 				scenes: new Scene []
 				{
 					new Psychic.Scenes.LogoScene (),
@@ -44,6 +44,7 @@ namespace Psychic
 					SystemManager.SharedManager.RegisterSystem ( new SpriteTwinkleSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new MessageSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new TileRenderSystem () );
+					SystemManager.SharedManager.RegisterSystem ( new PsychicAnimationSystem () );
 				};
 				game.Run ();
 			}

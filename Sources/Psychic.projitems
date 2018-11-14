@@ -9,6 +9,7 @@
     <Import_RootNamespace>Psychic</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Components\PsychicAnimation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\SpriteTwinkle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Tile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Input\InputManager.cs" />
@@ -23,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Static\Options.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Static\StageTileInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\MessageSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\PsychicAnimationSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\SpriteTwinkleSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\TileRenderSystem.cs" />
   </ItemGroup>

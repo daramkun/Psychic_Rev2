@@ -8,6 +8,16 @@ namespace Psychic.Static
 	{
 		public static int Stage = 1;
 		public static int HitPoint = 10;
-		public static int ManaPoint = 10;
+		public static int SkillPoint = 10;
+		public static int CurrentSkill = 0;
+		public static bool UsingSkill = false;
+
+		public static void Initialize ()
+		{
+			HitPoint = 10;
+			SkillPoint = 10;
+			CurrentSkill = 0;
+			UsingSkill = false;
+		}
 	}
 }

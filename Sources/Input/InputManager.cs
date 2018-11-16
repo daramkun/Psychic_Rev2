@@ -41,6 +41,16 @@ namespace Psychic.Input
 		public static bool BInput => SharedInputService.IsKeyPress ( Keys.D )
 			|| SharedInputService.IsGamePadButtonPress ( Buttons.B );
 
+		public static bool XInputDown => SharedInputService.IsKeyDown ( Keys.A )
+			|| SharedInputService.IsGamePadButtonDown ( Buttons.X );
+		public static bool XInput => SharedInputService.IsKeyPress ( Keys.A )
+			|| SharedInputService.IsGamePadButtonPress ( Buttons.X );
+
+		public static bool YInputDown => SharedInputService.IsKeyDown ( Keys.W )
+			|| SharedInputService.IsGamePadButtonDown ( Buttons.Y );
+		public static bool YInput => SharedInputService.IsKeyPress ( Keys.W )
+			|| SharedInputService.IsGamePadButtonPress ( Buttons.Y );
+
 		public static bool BackInputDown => SharedInputService.IsKeyDown ( Keys.Back ) || SharedInputService.IsKeyDown ( Keys.Escape )
 			|| SharedInputService.IsGamePadButtonDown ( Buttons.Back );
 		public static bool BackInput => SharedInputService.IsKeyPress ( Keys.Back ) || SharedInputService.IsKeyPress ( Keys.Escape )

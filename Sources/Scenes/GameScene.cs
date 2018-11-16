@@ -1,11 +1,16 @@
-﻿using Daramee.Mint.Components;
+﻿using Daramee.Mint;
+using Daramee.Mint.Components;
 using Daramee.Mint.Diagnostics;
 using Daramee.Mint.Entities;
 using Daramee.Mint.Graphics;
+using Daramee.Mint.Input;
 using Daramee.Mint.Processors;
 using Daramee.Mint.Scenes;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Psychic.Components;
+using Psychic.Entities;
 using Psychic.Input;
 using Psychic.Static;
 using System;
@@ -18,6 +23,7 @@ namespace Psychic.Scenes
 	{
 		byte [,] tileData;
 		Entity cameraEntity;
+		UserInterface ui;
 		Entity lisaEntity;
 
 		Vector2 playerPosition;
@@ -25,12 +31,16 @@ namespace Psychic.Scenes
 		TimeSpan movingElapsed;
 		bool movingFall;
 
-		bool isGameOver = false;
+		bool isGameOver = false, isInMenu = false;
 
 		public override string Name => "GameScene";
 
 		protected override void Enter ()
 		{
+			isGameOver = isInMenu = false;
+			movingStartLeft = movingStartRight = movingFall = false;
+			GameSceneParameter.Initialize ();
+
 			var tileEntity = EntityManager.SharedManager.CreateEntity ();
 			tileEntity.AddComponent<Tile> ().TileData = tileData = StageTileInfo.GetStageData ( GameSceneParameter.Stage );
 
@@ -54,6 +64,8 @@ namespace Psychic.Scenes
 			lisaAnimation.LeftWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/hero0a", "Player/hero1a", "Player/hero2a", "Player/hero3a", "Player/hero4a" );
 			lisaAnimation.RightWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/hero0", "Player/hero1", "Player/hero2", "Player/hero3", "Player/hero4" );
 			lisaAnimation.Dead = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/herod" );
+
+			ui = new UserInterface ();
 
 			ProcessorManager.SharedManager.RegisterProcessor ( this );
 		}
@@ -86,6 +98,28 @@ namespace Psychic.Scenes
 							movingStartRight = true;
 						}
 					}
+					else if ( InputManager.AInputDown )
+					{
+
+					}
+					else if ( InputManager.XInputDown )
+					{
+						--GameSceneParameter.CurrentSkill;
+						if ( GameSceneParameter.CurrentSkill < 0 )
+							GameSceneParameter.CurrentSkill = 2;
+					}
+					else if ( InputManager.BInputDown )
+					{
+						++GameSceneParameter.CurrentSkill;
+						if ( GameSceneParameter.CurrentSkill > 2 )
+							GameSceneParameter.CurrentSkill = 0;
+					}
+					else if ( InputService.SharedInputService.IsKeyDown ( Keys.D1 ) )
+						GameSceneParameter.CurrentSkill = 0;
+					else if ( InputService.SharedInputService.IsKeyDown ( Keys.D2 ) )
+						GameSceneParameter.CurrentSkill = 1;
+					else if ( InputService.SharedInputService.IsKeyDown ( Keys.D3 ) )
+						GameSceneParameter.CurrentSkill = 2;
 					else
 					{
 						if ( pa.CurrentAnimationStatus == CurrentAnimationStatus.LeftWalk
@@ -106,8 +140,7 @@ namespace Psychic.Scenes
 						playerPosition += new Vector2 ( 0, 0.5f );
 						if ( ( int ) playerPosition.Y >= 4 )
 						{
-							isGameOver = true;
-							pa.CurrentAnimationStatus = CurrentAnimationStatus.Dead;
+							DoGameOver ();
 						}
 						else
 						{
@@ -149,6 +182,8 @@ namespace Psychic.Scenes
 				{
 					cameraEntity.GetComponent<Transform2D> ().Position = new Vector2 ( ( tileData.GetLength ( 1 ) - 7 ) * 25, 0 );
 				}
+
+				ui.Update ( gameTime );
 			}
 			else if ( lisaEntity.HasComponent<Message> () )
 			{
@@ -156,8 +191,30 @@ namespace Psychic.Scenes
 			}
 			else if ( isGameOver )
 			{
+				if ( InputManager.AInputDown )
+				{
+					SceneManager.SharedManager.Transition ( "MenuScene" );
+				}
+			}
+			else if ( isInMenu )
+			{
 
 			}
+		}
+
+		private void DoGameOver ()
+		{
+			isGameOver = true;
+			playerPosition += new Vector2 ( 0, 0.275f );
+
+			var pa = lisaEntity.GetComponent<PsychicAnimation> ();
+			pa.CurrentAnimationStatus = CurrentAnimationStatus.Dead;
+
+			var gameOverEntity = EntityManager.SharedManager.CreateEntity ();
+			gameOverEntity.AddComponent<Transform2D> ().Position = new Vector2 ( 176 / 2, 125 / 2 );
+			var sprite = gameOverEntity.AddComponent<SpriteRender> ();
+			sprite.Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Text/GameOver" );
+			sprite.IsCameraIndependency = true;
 		}
 	}
 }

@@ -54,7 +54,7 @@ namespace Psychic.Systems
 			spriteBatch.Draw ( blackPanel, new Rectangle ( 0, 120, 176, 58 ), Color.Black );
 
 			spriteBatch.DrawString ( msg.Font, msg.Name ?? "SYSTEM",
-				new Vector2 ( 4, 122 ), Color.Green );
+				new Vector2 ( 4, 126 ), new Color ( 0, 255, 0, 255 ) );
 
 			spriteBatch.DrawString ( msg.Font, msg.Text,
 				new Vector2 ( 4, 142 ), Color.White );

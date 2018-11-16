@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\PsychicAnimation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\SpriteTwinkle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Tile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\UserInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Input\InputManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Message.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Scenes\EndingScene.cs" />

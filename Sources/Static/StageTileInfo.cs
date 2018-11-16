@@ -118,16 +118,18 @@ namespace Psychic.Static
 		{
 			foreach ( var txt in Message.CalculateMessageTextArea ( text, font ) )
 			{
-				Message msg = new Message ();
-				msg.Font = font;
-				msg.OverlayImage = null;
-				msg.Name = talker;
-				msg.Text = txt;
+				Message msg = new Message
+				{
+					Font = font,
+					OverlayImage = null,
+					Name = talker,
+					Text = txt
+				};
 				yield return msg;
 			}
 		}
 
-		public static IEnumerable<Message> GetStageEventMessage ( SpriteFont font, int stage )
+		public static IEnumerable<Message> GetStageStartEventMessage ( SpriteFont font, int stage )
 		{
 			switch ( stage )
 			{
@@ -207,7 +209,6 @@ namespace Psychic.Static
 					break;
 
 				default:
-					yield return null;
 					break;
 			}
 		}

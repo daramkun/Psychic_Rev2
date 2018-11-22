@@ -483,4 +483,10 @@
 진재연
 김여원</value>
   </data>
+  <data name="Talker_System" xml:space="preserve">
+    <value>[SYSTEM]</value>
+  </data>
+  <data name="Message_Help_Invisible" xml:space="preserve">
+    <value>앞에 있는건 덫인가... 저 군인을 이용하자.</value>
+  </data>
 </root>

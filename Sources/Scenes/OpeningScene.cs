@@ -33,47 +33,57 @@ namespace Psychic.Scenes
 			messages = new Queue<Message> ();
 			foreach ( var txt in Message.CalculateMessageTextArea ( Resources.Message_Opening_Scene_1_1, msg.Font ) )
 			{
-				Message message = new Message ();
-				message.Font = msg.Font;
-				message.OverlayImage = Engine.SharedEngine.Content.Load<Texture2D> ( "Scenes/Opening/Opening1" );
-				message.Name = Resources.Talker_Lisa;
-				message.Text = txt;
+				Message message = new Message
+				{
+					Font = msg.Font,
+					OverlayImage = Engine.SharedEngine.Content.Load<Texture2D> ( "Scenes/Opening/Opening1" ),
+					Name = Resources.Talker_Lisa,
+					Text = txt
+				};
 				messages.Enqueue ( message );
 			}
 			foreach ( var txt in Message.CalculateMessageTextArea ( Resources.Message_Opening_Scene_1_2, msg.Font ) )
 			{
-				Message message = new Message ();
-				message.Font = msg.Font;
-				message.OverlayImage = Engine.SharedEngine.Content.Load<Texture2D> ( "Scenes/Opening/Opening1" );
-				message.Name = Resources.Talker_Lisa;
-				message.Text = txt;
+				Message message = new Message
+				{
+					Font = msg.Font,
+					OverlayImage = Engine.SharedEngine.Content.Load<Texture2D> ( "Scenes/Opening/Opening1" ),
+					Name = Resources.Talker_Lisa,
+					Text = txt
+				};
 				messages.Enqueue ( message );
 			}
 			foreach ( var txt in Message.CalculateMessageTextArea ( Resources.Message_Opening_Scene_2_1, msg.Font ) )
 			{
-				Message message = new Message ();
-				message.Font = msg.Font;
-				message.OverlayImage = Engine.SharedEngine.Content.Load<Texture2D> ( "Scenes/Opening/Opening2" );
-				message.Name = Resources.Talker_Lisa;
-				message.Text = txt;
+				Message message = new Message
+				{
+					Font = msg.Font,
+					OverlayImage = Engine.SharedEngine.Content.Load<Texture2D> ( "Scenes/Opening/Opening2" ),
+					Name = Resources.Talker_Lisa,
+					Text = txt
+				};
 				messages.Enqueue ( message );
 			}
 			foreach ( var txt in Message.CalculateMessageTextArea ( Resources.Message_Opening_Scene_2_2, msg.Font ) )
 			{
-				Message message = new Message ();
-				message.Font = msg.Font;
-				message.OverlayImage = Engine.SharedEngine.Content.Load<Texture2D> ( "Scenes/Opening/Opening2" );
-				message.Name = Resources.Talker_Lisa;
-				message.Text = txt;
+				Message message = new Message
+				{
+					Font = msg.Font,
+					OverlayImage = Engine.SharedEngine.Content.Load<Texture2D> ( "Scenes/Opening/Opening2" ),
+					Name = Resources.Talker_Lisa,
+					Text = txt
+				};
 				messages.Enqueue ( message );
 			}
 			foreach ( var txt in Message.CalculateMessageTextArea ( Resources.Message_Opening_Scene_3_1, msg.Font ) )
 			{
-				Message message = new Message ();
-				message.Font = msg.Font;
-				message.OverlayImage = Engine.SharedEngine.Content.Load<Texture2D> ( "Scenes/Opening/Opening3" );
-				message.Name = Resources.Talker_Lisa;
-				message.Text = txt;
+				Message message = new Message
+				{
+					Font = msg.Font,
+					OverlayImage = Engine.SharedEngine.Content.Load<Texture2D> ( "Scenes/Opening/Opening3" ),
+					Name = Resources.Talker_Lisa,
+					Text = txt
+				};
 				messages.Enqueue ( message );
 			}
 

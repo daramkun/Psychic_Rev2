@@ -5,6 +5,7 @@ using Daramee.Mint.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Psychic.Components;
+using Psychic.Properties;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -53,7 +54,7 @@ namespace Psychic.Systems
 
 			spriteBatch.Draw ( blackPanel, new Rectangle ( 0, 120, 176, 58 ), Color.Black );
 
-			spriteBatch.DrawString ( msg.Font, msg.Name ?? "SYSTEM",
+			spriteBatch.DrawString ( msg.Font, msg.Name ?? Resources.Talker_System,
 				new Vector2 ( 4, 126 ), new Color ( 0, 255, 0, 255 ) );
 
 			spriteBatch.DrawString ( msg.Font, msg.Text,

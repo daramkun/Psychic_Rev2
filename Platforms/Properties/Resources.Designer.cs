@@ -1011,6 +1011,15 @@ namespace Psychic.Properties {
         }
         
         /// <summary>
+        ///   앞에 있는건 덫인가... 저 군인을 이용하자.과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Message_Help_Invisible {
+            get {
+                return ResourceManager.GetString("Message_Help_Invisible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   낭떠러지인가... 순간이동을 써야겠다.과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         public static string Message_Help_Teleport_Cliff {
@@ -1143,6 +1152,15 @@ namespace Psychic.Properties {
         public static string Talker_Steve_Unknown {
             get {
                 return ResourceManager.GetString("Talker_Steve_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   [SYSTEM]과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string Talker_System {
+            get {
+                return ResourceManager.GetString("Talker_System", resourceCulture);
             }
         }
     }

@@ -34,6 +34,12 @@ namespace Psychic.Components
 
 		public static IEnumerable<string> CalculateMessageTextArea ( string text, SpriteFont font )
 		{
+			if ( string.IsNullOrEmpty ( text))
+			{
+				yield return "";
+				yield break;
+			}
+
 			Queue<char> q = new Queue<char> ( text );
 			StringBuilder builder = new StringBuilder ();
 

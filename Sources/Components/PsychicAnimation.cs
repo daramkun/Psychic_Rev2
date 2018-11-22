@@ -28,7 +28,7 @@ namespace Psychic.Components
 		{
 			if ( component is PsychicAnimation )
 			{
-				CurrentAnimationStatus = ( component as PsychicAnimation ).CurrentAnimationStatus;
+				//CurrentAnimationStatus = ( component as PsychicAnimation ).CurrentAnimationStatus;
 				LeftStand = ( component as PsychicAnimation ).LeftStand;
 				RightStand = ( component as PsychicAnimation ).RightStand;
 				LeftWalk = ( component as PsychicAnimation ).LeftWalk;

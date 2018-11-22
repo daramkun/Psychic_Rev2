@@ -257,7 +257,7 @@ namespace Psychic.Scenes
 					// TODO
 					if ( selectedGameStartItem == 1 )
 					{
-
+						Coroutine.SharedCoroutine.RegisterCoroutine ( TransitionToGameScene () );
 					}
 					else
 					{
@@ -327,6 +327,14 @@ namespace Psychic.Scenes
 		private IEnumerator TransitionToOpeningScene ()
 		{
 			SceneManager.SharedManager.Transition ( "OpeningScene" );
+			yield return null;
+		}
+
+		private IEnumerator TransitionToGameScene ()
+		{
+			if ( !GameSceneParameter.LoadParameter () )
+				yield break;
+			SceneManager.SharedManager.Transition ( "GameScene" );
 			yield return null;
 		}
 	}

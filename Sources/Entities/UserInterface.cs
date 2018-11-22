@@ -98,7 +98,7 @@ namespace Psychic.Entities
 		public void Update ( GameTime gameTime )
 		{
 			hpBar.GetComponent<Transform2D> ().Position = new Vector2 ( 23, 137 ) + ( hpBar.GetComponent<RectangleRender> ().Size = new Vector2 ( 5 * GameSceneParameter.HitPoint, 10 ) ) / 2;
-			spBar.GetComponent<Transform2D> ().Position = new Vector2 ( 23, 157 ) + ( spBar.GetComponent<RectangleRender> ().Size = new Vector2 ( 5 * GameSceneParameter.SkillPoint, 10 ) ) / 2;
+			spBar.GetComponent<Transform2D> ().Position = new Vector2 ( 23, 157 ) + ( spBar.GetComponent<RectangleRender> ().Size = new Vector2 ( GameSceneParameter.SkillPoint, 10 ) ) / 2;
 
 			switch ( GameSceneParameter.CurrentSkill )
 			{

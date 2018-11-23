@@ -9,11 +9,14 @@
     <Import_RootNamespace>Psychic</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Bullet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Document.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Door.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Help.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Key.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Items\MachineGun.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Save.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Sensor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\PsychicAnimation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\SpriteTwinkle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Tile.cs" />
@@ -29,13 +32,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Static\GameSceneParameter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Static\Options.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Static\StageTileInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\BulletSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\DocumentSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\DoorSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\HelpSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\KeySystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\MachineGunSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\MessageSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\PsychicAnimationSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\SaveSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\SensorSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\SpriteTwinkleSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\TileRenderSystem.cs" />
   </ItemGroup>

@@ -90,6 +90,19 @@ namespace Psychic.Scenes
 						obj.AddComponent<SpriteRender> ().Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Objects/Items/Text" );
 						obj.AddComponent<Document> ().DocumentId = objInfo.Argument;
 						break;
+
+					case ObjectType.Sensor:
+						obj.AddComponent<SpriteRender> ();
+						obj.AddComponent<SpriteAnimation> ().Animation = new Animation ( TimeSpan.FromSeconds ( 0.3 )
+							, "Traps/Sensors/Sensor1", "Traps/Sensors/Sensor2" );
+						obj.AddComponent<Sensor> ();
+						break;
+
+					case ObjectType.MachineGun:
+						obj.GetComponent<Transform2D> ().Position += new Vector2 ( 0, 5 );
+						obj.AddComponent<SpriteRender> ().Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( objInfo.ToRight ? "Traps/MachineGuns/MachineGunRight" : "Traps/MachineGuns/MachineGunLeft" );
+						obj.AddComponent<MachineGun> ().IsRight = objInfo.ToRight;
+						break;
 				}
 			}
 

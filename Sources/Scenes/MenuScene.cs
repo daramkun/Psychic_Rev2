@@ -36,6 +36,9 @@ namespace Psychic.Scenes
 
 		protected override void Enter ()
 		{
+			selectedMenuItem = selectedGameStartItem = selectedInfoItem = 0;
+			isInStart = isInInfo = isInOption = isInCredit = false;
+
 			// 로고 이미지
 			var logoEntity = EntityManager.SharedManager.CreateEntity ();
 			logoEntity.AddComponent<Transform2D> ().Position = new Vector2 ( 92 + 42, 5 + 7.5f );

@@ -37,7 +37,7 @@ namespace Psychic
 				} ) )
 			{
 				game.IsFixedTimeStep = true;
-				game.TargetElapsedTime = TimeSpan.FromTicks ( 333333 );
+				game.TargetElapsedTime = TimeSpan.FromTicks ( 133333 );
 				game.FrameBufferClearColor = Color.Black;
 				game.Initialized += ( sender, e ) =>
 				{
@@ -50,6 +50,9 @@ namespace Psychic
 					SystemManager.SharedManager.RegisterSystem ( new HelpSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new SaveSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new DocumentSystem () );
+					SystemManager.SharedManager.RegisterSystem ( new MachineGunSystem () );
+					SystemManager.SharedManager.RegisterSystem ( new SensorSystem () );
+					SystemManager.SharedManager.RegisterSystem ( new BulletSystem () );
 
 				};
 				game.Run ();

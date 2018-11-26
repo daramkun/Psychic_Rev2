@@ -9,6 +9,7 @@
     <Import_RootNamespace>Psychic</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Fallable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Bullet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Document.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Door.cs" />
@@ -37,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Systems\DocumentSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\DoorSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\EnemyController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\FallingSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\HelpSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\KeySystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\MachineGunSystem.cs" />

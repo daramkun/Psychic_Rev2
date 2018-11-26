@@ -20,6 +20,13 @@ namespace Psychic.Systems
 
 		public bool IsTarget ( Entity entity ) => entity.HasComponent<Enemy> ();
 
+		Tile tile;
+
+		public void PreExecute ()
+		{
+			tile = EntityManager.SharedManager.GetEntitiesByComponent<Tile> ().First ().GetComponent<Tile> ();
+		}
+
 		public void Execute ( Entity entity, GameTime gameTime )
 		{
 			var enemy = entity.GetComponent<Enemy> ();
@@ -27,7 +34,10 @@ namespace Psychic.Systems
 
 			var ani = entity.GetComponent<PsychicAnimation> ();
 			if ( enemy.IsDead )
+			{
 				ani.CurrentAnimationStatus = CurrentAnimationStatus.Dead;
+				return;
+			}
 			else
 				ani.CurrentAnimationStatus = enemy.IsRightViewing
 					? CurrentAnimationStatus.RightWalk
@@ -36,20 +46,19 @@ namespace Psychic.Systems
 			var transform = entity.GetComponent<Transform2D> ();
 
 			enemy.ElapsedTime += gameTime.ElapsedGameTime;
-			if ( enemy.ElapsedTime > TimeSpan.FromSeconds ( 0.5 ) )
+			if ( enemy.ElapsedTime > TimeSpan.FromSeconds ( 0.2 ) )
 			{
 				var offset = Math.Abs ( enemy.OriginalPosition.X - transform.Position.X ) / 25;
 				if ( offset >= 3 )
 					enemy.IsRightViewing = !enemy.IsRightViewing;
-
-				var tile = EntityManager.SharedManager.GetEntitiesByComponent<Tile> ().First ().GetComponent<Tile> ();
+				
 				if ( enemy.IsRightViewing )
 				{
 					if ( tile.TileData [ ( int ) transform.Position.Y / 25 + 1, ( int ) transform.Position.X / 25 + 1 ] == 0 )
 						enemy.IsRightViewing = !enemy.IsRightViewing;
 					else if ( tile.TileData [ ( int ) transform.Position.Y / 25, ( int ) transform.Position.X / 25 + 1 ] != 0 )
 						enemy.IsRightViewing = !enemy.IsRightViewing;
-					transform.Position.X += 25;
+					transform.Position.X += 12.5f;
 				}
 				else
 				{
@@ -57,14 +66,13 @@ namespace Psychic.Systems
 						enemy.IsRightViewing = !enemy.IsRightViewing;
 					else if ( tile.TileData [ ( int ) transform.Position.Y / 25, ( int ) transform.Position.X / 25 - 1 ] != 0 )
 						enemy.IsRightViewing = !enemy.IsRightViewing;
-					transform.Position.X -= 25;
+					transform.Position.X -= 12.5f;
 				}
 
-				enemy.ElapsedTime -= TimeSpan.FromSeconds ( 0.5 );
+				enemy.ElapsedTime -= TimeSpan.FromSeconds ( 0.2 );
 			}
 		}
 
-		public void PreExecute () { }
-		public void PostExecute () { }
+		public void PostExecute () { tile = null; }
 	}
 }

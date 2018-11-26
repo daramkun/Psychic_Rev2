@@ -30,11 +30,16 @@ namespace Psychic.Scenes
 		UserInterface ui;
 		Entity lisaEntity;
 		Entity teleportEntity;
-
-		Vector2 playerPosition, laserPosition;
+		Entity mindControlEntity;
+		
 		bool movingStartLeft, movingStartRight;
 		TimeSpan movingElapsed;
-		bool movingFall;
+		bool usingTeleport, usingMindControl;
+
+		Entity targetEnemyEntity;
+		bool mcMovingStartLeft, mcMovingStartRight;
+		TimeSpan mcMovingElapsed;
+		bool mcMovingFall;
 
 		bool isGameOver = false, isInMenu = false;
 
@@ -78,7 +83,8 @@ namespace Psychic.Scenes
 		protected override void Enter ()
 		{
 			isGameOver = isInMenu = false;
-			movingStartLeft = movingStartRight = movingFall = false;
+			movingStartLeft = movingStartRight = false;
+			usingTeleport = usingMindControl = false;
 			GameSceneParameter.Initialize ();
 			MessageQueue.Clear ();
 
@@ -149,7 +155,6 @@ namespace Psychic.Scenes
 			for ( ; emptyTileY < 5; ++emptyTileY )
 				if ( tileEntity.GetComponent<Tile> ().TileData [ emptyTileY, 1 ] == 0 )
 					break;
-			playerPosition = new Vector2 ( 1, emptyTileY );
 
 			cameraEntity = EntityManager.SharedManager.CreateEntity ();
 			cameraEntity.AddComponent<Transform2D> ();
@@ -157,9 +162,10 @@ namespace Psychic.Scenes
 
 			lisaEntity = EntityManager.SharedManager.CreateEntity ();
 			lisaEntity.Name = "Lisa";
-			lisaEntity.AddComponent<Transform2D> ().Position = playerPosition * new Vector2 ( 25, 25 ) + new Vector2 ( 12, 12 );
+			lisaEntity.AddComponent<Transform2D> ().Position = new Vector2 ( 1, emptyTileY ) * new Vector2 ( 25, 25 ) + new Vector2 ( 12, 12 );
 			lisaEntity.AddComponent<SpriteRender> ();
 			lisaEntity.AddComponent<SpriteAnimation> ();
+			lisaEntity.AddComponent<Fallable> ();
 
 			lisaEntity.AddComponent<PsychicAnimation> ().CopyFrom ( lisaStandardAnimations );
 
@@ -182,7 +188,7 @@ namespace Psychic.Scenes
 		public void Process ( GameTime gameTime )
 		{
 			if ( !lisaEntity.HasComponent<Message> () && !isGameOver
-				&& !( ( GameSceneParameter.CurrentSkill == 0 || GameSceneParameter.CurrentSkill == 2 ) && GameSceneParameter.UsingSkill ) )
+				&& ( !usingTeleport && !usingMindControl ) )
 			{
 				PlayerUpdate ( gameTime );
 				ui.Update ( gameTime );
@@ -202,15 +208,15 @@ namespace Psychic.Scenes
 					}
 				}
 			}
-			else if ( ( GameSceneParameter.CurrentSkill == 0 || GameSceneParameter.CurrentSkill == 2 ) && GameSceneParameter.UsingSkill )
+			else if ( usingTeleport || usingMindControl )
 			{
-				if ( GameSceneParameter.CurrentSkill == 0 )
+				if ( usingTeleport )
 				{
 					TeleportUpdate ();
 				}
-				else if ( GameSceneParameter.CurrentSkill == 2 )
+				else if ( usingMindControl )
 				{
-					MindControlUpdate ();
+					MindControlUpdate ( gameTime );
 				}
 			}
 			else if ( isGameOver )
@@ -228,44 +234,48 @@ namespace Psychic.Scenes
 
 		private void TeleportUpdate ()
 		{
+			var transform = teleportEntity.GetComponent<Transform2D> ();
+			var laserPosScalar = ( transform.Position - new Vector2 ( 12, 12 ) ) / 25;
 			if ( InputManager.UpInputDown )
 			{
-				if ( laserPosition.Y - 1 >= 0 && tileData [ ( int ) laserPosition.Y - 1, ( int ) laserPosition.X ] == 0 )
-					laserPosition.Y -= 1;
+				if ( laserPosScalar.Y - 1 >= 0 && tileData [ ( int ) laserPosScalar.Y - 1, ( int ) laserPosScalar.X ] == 0 )
+					transform.Position.Y -= 25;
 			}
 			else if ( InputManager.DownInputDown )
 			{
-				if ( laserPosition.Y + 1 <= 4 && tileData [ ( int ) laserPosition.Y + 1, ( int ) laserPosition.X ] == 0 )
-					laserPosition.Y += 1;
+				if ( laserPosScalar.Y + 1 <= 4 && tileData [ ( int ) laserPosScalar.Y + 1, ( int ) laserPosScalar.X ] == 0 )
+					transform.Position.Y += 25;
 			}
 			else if ( InputManager.LeftInputDown )
 			{
-				if ( laserPosition.X - 1 >= 0 && tileData [ ( int ) laserPosition.Y, ( int ) laserPosition.X - 1 ] == 0 )
-					laserPosition.X -= 1;
+				if ( laserPosScalar.X - 1 >= 0 && tileData [ ( int ) laserPosScalar.Y, ( int ) laserPosScalar.X - 1 ] == 0 )
+					transform.Position.X -= 25;
 			}
 			else if ( InputManager.RightInputDown )
 			{
-				if ( laserPosition.X + 1 < tileData.GetLength ( 1 ) && tileData [ ( int ) laserPosition.Y, ( int ) laserPosition.X + 1 ] == 0 )
-					laserPosition.X += 1;
+				if ( laserPosScalar.X + 1 < tileData.GetLength ( 1 ) && tileData [ ( int ) laserPosScalar.Y, ( int ) laserPosScalar.X + 1 ] == 0 )
+					transform.Position.X += 25;
 			}
 			else if ( InputManager.AInputDown )
 			{
-				if ( laserPosition != playerPosition )
+				if ( transform.Position != lisaEntity.GetComponent<Transform2D>().Position )
 				{
-					if ( tileData [ 0, ( int ) laserPosition.X ] == 3 ||
-						tileData [ 1, ( int ) laserPosition.X ] == 3 ||
-						tileData [ 2, ( int ) laserPosition.X ] == 3 ||
-						tileData [ 3, ( int ) laserPosition.X ] == 3 ||
-						tileData [ 4, ( int ) laserPosition.X ] == 3 )
+					if ( tileData [ 0, ( int ) laserPosScalar.X ] == 3 ||
+						tileData [ 1, ( int ) laserPosScalar.X ] == 3 ||
+						tileData [ 2, ( int ) laserPosScalar.X ] == 3 ||
+						tileData [ 3, ( int ) laserPosScalar.X ] == 3 ||
+						tileData [ 4, ( int ) laserPosScalar.X ] == 3 )
 					{
-						laserPosition.X += laserPosition.X - playerPosition.X;
-						if ( laserPosition.Y >= 2 )
+						transform.Position.X += transform.Position.X - lisaEntity.GetComponent<Transform2D> ().Position.X;
+						laserPosScalar = ( transform.Position - new Vector2 ( 12, 12 ) ) / 25;
+
+						if ( laserPosScalar.Y >= 2 )
 						{
 							for ( int i = 3; i >=0; --i )
 							{
-								if ( tileData [ i, ( int ) laserPosition.X ] == 0 )
+								if ( tileData [ i, ( int ) laserPosScalar.X ] == 0 )
 								{
-									laserPosition.Y = i;
+									transform.Position.Y = i * 25 + 12;
 									break;
 								}
 							}
@@ -274,34 +284,80 @@ namespace Psychic.Scenes
 						{
 							for ( int i = 0; i <= 3; ++i )
 							{
-								if ( tileData [ i, ( int ) laserPosition.X ] == 0 )
+								if ( tileData [ i, ( int ) laserPosScalar.X ] == 0 )
 								{
-									laserPosition.Y = i;
+									transform.Position.Y = i * 25 + 12;
 									break;
 								}
 							}
 						}
 					}
-					else if ( !( tileData [ 0, ( int ) laserPosition.X ] == 2 ||
-						tileData [ 1, ( int ) laserPosition.X ] == 2 ||
-						tileData [ 2, ( int ) laserPosition.X ] == 2 ||
-						tileData [ 3, ( int ) laserPosition.X ] == 2 ||
-						tileData [ 4, ( int ) laserPosition.X ] == 2 ) )
+					else if ( !( tileData [ 0, ( int ) laserPosScalar.X ] == 2 ||
+						tileData [ 1, ( int ) laserPosScalar.X ] == 2 ||
+						tileData [ 2, ( int ) laserPosScalar.X ] == 2 ||
+						tileData [ 3, ( int ) laserPosScalar.X ] == 2 ||
+						tileData [ 4, ( int ) laserPosScalar.X ] == 2 ) )
 					{
-						playerPosition = laserPosition;
+						lisaEntity.GetComponent<Transform2D> ().Position = teleportEntity.GetComponent<Transform2D> ().Position;
 						GameSceneParameter.SkillPoint -= 2;
+						usingTeleport = false;
 					}
 				}
 				GameSceneParameter.UsingSkill = false;
 				teleportEntity.IsActived = false;
 			}
-			teleportEntity.GetComponent<Transform2D> ().Position
-				= laserPosition * new Vector2 ( 25, 25 ) + new Vector2 ( 12, 12 );
 		}
 
-		private void MindControlUpdate ()
+		private void MindControlUpdate ( GameTime gameTime )
 		{
-
+			var pa = targetEnemyEntity.GetComponent<PsychicAnimation> ();
+			var enemyPosition = Mathf.Floor ( targetEnemyEntity.GetComponent<Transform2D> ().Position / 25 );
+			if ( !mcMovingFall && !mcMovingStartLeft && !mcMovingStartRight )
+			{
+				if ( InputManager.LeftInput )
+				{
+					pa.CurrentAnimationStatus = CurrentAnimationStatus.LeftWalk;
+					if ( tileData [ ( int ) enemyPosition.Y, ( int ) ( enemyPosition.X - 1 ) ] == 0 )
+						mcMovingStartLeft = true;
+				}
+				else if ( InputManager.RightInput )
+				{
+					pa.CurrentAnimationStatus = CurrentAnimationStatus.RightWalk;
+					if ( tileData [ ( int ) enemyPosition.Y, ( int ) ( enemyPosition.X + 1 ) ] == 0 )
+						mcMovingStartRight = true;
+				}
+				else if ( InputManager.AInputDown )
+				{
+					GameSceneParameter.UsingSkill = false;
+					usingMindControl = false;
+					targetEnemyEntity.GetComponent<Enemy> ().IsControllingByPlayer = false;
+				}
+				else
+				{
+					if ( pa.CurrentAnimationStatus == CurrentAnimationStatus.LeftWalk
+						|| pa.CurrentAnimationStatus == CurrentAnimationStatus.LeftStand )
+						pa.CurrentAnimationStatus = CurrentAnimationStatus.LeftStand;
+					else if ( pa.CurrentAnimationStatus == CurrentAnimationStatus.RightWalk
+						|| pa.CurrentAnimationStatus == CurrentAnimationStatus.RightStand )
+						pa.CurrentAnimationStatus = CurrentAnimationStatus.RightStand;
+					movingElapsed = new TimeSpan ();
+					movingStartLeft = movingStartRight = false;
+				}
+			}
+			else
+			{
+				mcMovingElapsed += gameTime.ElapsedGameTime;
+				if ( movingElapsed > TimeSpan.FromSeconds ( 0.1 ) )
+				{
+					targetEnemyEntity.GetComponent<Transform2D> ().Position += new Vector2 ( 12.5f * ( mcMovingStartLeft ? -1 : 1 ), 0 );
+					if ( enemyPosition.X - ( int ) enemyPosition.X <= float.Epsilon )
+					{
+						mcMovingElapsed = new TimeSpan ();
+						mcMovingStartLeft = mcMovingStartRight = false;
+					}
+					else mcMovingElapsed -= TimeSpan.FromSeconds ( 0.1 );
+				}
+			}
 		}
 
 		private void PlayerUpdate ( GameTime gameTime )
@@ -314,29 +370,30 @@ namespace Psychic.Scenes
 				return;
 			}
 
-			if ( ( !movingStartLeft && !movingStartRight ) && !movingFall )
+			var fallable = lisaEntity.GetComponent<Fallable> ();
+			if ( fallable.DeadFlag )
+			{
+				DoGameOver ();
+			}
+
+			if ( ( !movingStartLeft && !movingStartRight ) && !fallable.IsFalling )
 			{
 				PlayerInputUpdate ( gameTime );
-				if ( playerPosition.Y >= 4 || tileData [ ( int ) playerPosition.Y + 1, ( int ) playerPosition.X ] == 0 )
-					movingFall = true;
 			}
-			else if ( movingFall )
-			{
-				PlayerFall ( gameTime );
-			}
-			else
+			else if ( !fallable.IsFalling )
 			{
 				PlayerMoving ( gameTime );
 			}
 
-			lisaEntity.GetComponent<Transform2D> ().Position
-				= playerPosition * new Vector2 ( 25, 25 ) + new Vector2 ( 12, 12 );
+			//lisaEntity.GetComponent<Transform2D> ().Position
+			//	= playerPosition * new Vector2 ( 25, 25 ) + new Vector2 ( 12, 12 );
 			CameraUpdate ( gameTime );
 		}
 
 		private void PlayerInputUpdate ( GameTime gameTime )
 		{
 			var pa = lisaEntity.GetComponent<PsychicAnimation> ();
+			var playerPosition = ( lisaEntity.GetComponent<Transform2D> ().Position - new Vector2 ( 12, 12 ) ) / 25;
 			if ( InputManager.LeftInput )
 			{
 				pa.CurrentAnimationStatus = CurrentAnimationStatus.LeftWalk;
@@ -358,8 +415,9 @@ namespace Psychic.Scenes
 							break;
 						GameSceneParameter.UsingSkill = true;
 						lisaEntity.GetComponent<PsychicAnimation> ().CopyFrom ( lisaStandardAnimations );
-						laserPosition = playerPosition;
+						teleportEntity.GetComponent<Transform2D> ().Position = lisaEntity.GetComponent<Transform2D> ().Position;
 						teleportEntity.IsActived = true;
+						usingTeleport = true;
 						break;
 
 					case 1:
@@ -381,9 +439,24 @@ namespace Psychic.Scenes
 					case 2:
 						if ( GameSceneParameter.SkillPoint - 10 < 0 )
 							break;
-						GameSceneParameter.SkillPoint -= 10;
-						GameSceneParameter.UsingSkill = true;
-						lisaEntity.GetComponent<PsychicAnimation> ().CopyFrom ( lisaStandardAnimations );
+						var enemies = EntityManager.SharedManager.GetEntitiesByComponent<Enemy> ();
+						targetEnemyEntity = null;
+						foreach ( var enemy in enemies )
+						{
+							if ( enemy.GetComponent<Transform2D> ().Position == lisaEntity.GetComponent<Transform2D> ().Position )
+							{
+								targetEnemyEntity = enemy;
+								break;
+							}
+						}
+						if ( targetEnemyEntity != null )
+						{
+							GameSceneParameter.SkillPoint -= 10;
+							GameSceneParameter.UsingSkill = true;
+							lisaEntity.GetComponent<PsychicAnimation> ().CopyFrom ( lisaStandardAnimations );
+							usingMindControl = true;
+							targetEnemyEntity.GetComponent<Enemy> ().IsControllingByPlayer = true;
+						}
 						break;
 				}
 			}
@@ -418,33 +491,14 @@ namespace Psychic.Scenes
 			}
 		}
 
-		private void PlayerFall ( GameTime gameTime )
-		{
-			movingElapsed += gameTime.ElapsedGameTime;
-			if ( movingElapsed > TimeSpan.FromSeconds ( 0.1 ) )
-			{
-				playerPosition += new Vector2 ( 0, 0.5f );
-				if ( ( int ) playerPosition.Y >= 4 )
-				{
-					playerPosition.Y = 4;
-					DoGameOver ();
-				}
-				else
-				{
-					if ( tileData [ ( int ) playerPosition.Y + 1, ( int ) playerPosition.X ] != 0 )
-						movingFall = false;
-				}
-				movingElapsed -= TimeSpan.FromSeconds ( 0.1 );
-			}
-		}
-
 		private void PlayerMoving ( GameTime gameTime )
 		{
 			movingElapsed += gameTime.ElapsedGameTime;
 			if ( movingElapsed > TimeSpan.FromSeconds ( 0.1 ) )
 			{
-				playerPosition += new Vector2 ( 0.5f * ( movingStartLeft ? -1 : 1 ), 0 );
-				if ( playerPosition.X - ( int ) playerPosition.X <= float.Epsilon )
+				var transform = lisaEntity.GetComponent<Transform2D> ();
+				transform.Position += new Vector2 ( 12.5f * ( movingStartLeft ? -1 : 1 ), 0 );
+				if ( transform.Position.X - ( int ) transform.Position.X <= float.Epsilon )
 				{
 					movingElapsed = new TimeSpan ();
 					movingStartLeft = movingStartRight = false;
@@ -455,16 +509,17 @@ namespace Psychic.Scenes
 
 		private void CameraUpdate ( GameTime gameTime )
 		{
-			if ( playerPosition.X >= 4 && playerPosition.X <= ( tileData.GetLength ( 1 ) - 4 ) )
+			var transform = lisaEntity.GetComponent<Transform2D> ();
+			if ( transform.Position.X >= 100 && transform.Position.X <= ( tileData.GetLength ( 1 ) - 4 ) * 25 )
 			{
 				cameraEntity.GetComponent<Transform2D> ().Position
-					= new Vector2 ( ( playerPosition.X - 3 ) * 25, 0 );
+					= new Vector2 ( transform.Position.X - 75, 0 );
 			}
-			else if ( playerPosition.X < 4 )
+			else if ( transform.Position.X < 100 )
 			{
 				cameraEntity.GetComponent<Transform2D> ().Position = new Vector2 ( 0, 0 );
 			}
-			else if ( playerPosition.X > ( tileData.GetLength ( 1 ) - 4 ) )
+			else if ( transform.Position.X > ( tileData.GetLength ( 1 ) - 4 ) * 25 )
 			{
 				cameraEntity.GetComponent<Transform2D> ().Position = new Vector2 ( ( tileData.GetLength ( 1 ) - 7 ) * 25, 0 );
 			}
@@ -473,7 +528,7 @@ namespace Psychic.Scenes
 		private void DoGameOver ()
 		{
 			isGameOver = true;
-			playerPosition += new Vector2 ( 0, 0.275f );
+			lisaEntity.GetComponent<Transform2D>().Position += new Vector2 ( 0, 6.625f );
 
 			var pa = lisaEntity.GetComponent<PsychicAnimation> ();
 			pa.CurrentAnimationStatus = CurrentAnimationStatus.Dead;

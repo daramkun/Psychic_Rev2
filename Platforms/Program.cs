@@ -45,6 +45,7 @@ namespace Psychic
 					SystemManager.SharedManager.RegisterSystem ( new MessageSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new TileRenderSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new PsychicAnimationSystem () );
+					SystemManager.SharedManager.RegisterSystem ( new FallingSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new DoorSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new KeySystem () );
 					SystemManager.SharedManager.RegisterSystem ( new HelpSystem () );

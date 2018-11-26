@@ -17,6 +17,8 @@ namespace Psychic.Components.Enemies
 		public void Initialize ()
 		{
 			IsRightViewing = true;
+			IsDead = false;
+			OriginalPosition = new Vector2 ();
 			ElapsedTime = new TimeSpan ();
 			IsControllingByPlayer = false;
 		}
@@ -26,6 +28,7 @@ namespace Psychic.Components.Enemies
 			if ( component is Enemy )
 			{
 				IsRightViewing = ( component as Enemy ).IsRightViewing;
+				IsDead = ( component as Enemy ).IsDead;
 				OriginalPosition = ( component as Enemy ).OriginalPosition;
 			}
 		}

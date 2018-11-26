@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Psychic.Components;
+using Psychic.Components.Enemies;
 using Psychic.Components.Items;
 using Psychic.Entities;
 using Psychic.Input;
@@ -40,8 +41,39 @@ namespace Psychic.Scenes
 		public override string Name => "GameScene";
 
 		PsychicAnimation lisaStandardAnimations, lisaInvisibleAnimations;
+		PsychicAnimation enemyAnimations;
 
 		public Queue<Message> MessageQueue = new Queue<Message> ();
+
+		public GameScene ()
+		{
+			lisaStandardAnimations = new PsychicAnimation
+			{
+				LeftStand = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/hero0a" ),
+				RightStand = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/hero0" ),
+				LeftWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/hero0a", "Player/hero1a", "Player/hero2a", "Player/hero3a", "Player/hero4a" ),
+				RightWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/hero0", "Player/hero1", "Player/hero2", "Player/hero3", "Player/hero4" ),
+				Dead = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/herod" )
+			};
+
+			lisaInvisibleAnimations = new PsychicAnimation
+			{
+				LeftStand = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Skills/Invisible/herov0a" ),
+				RightStand = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Skills/Invisible/herov0" ),
+				LeftWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Skills/Invisible/herov0a", "Skills/Invisible/herov1a", "Skills/Invisible/herov2a", "Skills/Invisible/herov3a", "Skills/Invisible/herov4a" ),
+				RightWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Skills/Invisible/herov0", "Skills/Invisible/herov1", "Skills/Invisible/herov2", "Skills/Invisible/herov3", "Skills/Invisible/herov4" ),
+				Dead = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/herod" )
+			};
+
+			enemyAnimations = new PsychicAnimation
+			{
+				LeftStand = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Enemy/mon0a" ),
+				RightStand = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Enemy/mon0" ),
+				LeftWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Enemy/mon0a", "Enemy/mon1a", "Enemy/mon2a", "Enemy/mon3a" ),
+				RightWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Enemy/mon0", "Enemy/mon1", "Enemy/mon2", "Enemy/mon3" ),
+				Dead = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Enemy/mond" )
+			};
+		}
 
 		protected override void Enter ()
 		{
@@ -103,6 +135,13 @@ namespace Psychic.Scenes
 						obj.AddComponent<SpriteRender> ().Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( objInfo.ToRight ? "Traps/MachineGuns/MachineGunRight" : "Traps/MachineGuns/MachineGunLeft" );
 						obj.AddComponent<MachineGun> ().IsRight = objInfo.ToRight;
 						break;
+
+					case ObjectType.Enemy:
+						obj.AddComponent<SpriteRender> ();
+						obj.AddComponent<SpriteAnimation> ();
+						obj.AddComponent<PsychicAnimation> ().CopyFrom ( enemyAnimations );
+						obj.AddComponent<Enemy> ().OriginalPosition = obj.GetComponent<Transform2D> ().Position;
+						break;
 				}
 			}
 
@@ -121,24 +160,6 @@ namespace Psychic.Scenes
 			lisaEntity.AddComponent<Transform2D> ().Position = playerPosition * new Vector2 ( 25, 25 ) + new Vector2 ( 12, 12 );
 			lisaEntity.AddComponent<SpriteRender> ();
 			lisaEntity.AddComponent<SpriteAnimation> ();
-
-			lisaStandardAnimations = new PsychicAnimation
-			{
-				LeftStand = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/hero0a" ),
-				RightStand = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/hero0" ),
-				LeftWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/hero0a", "Player/hero1a", "Player/hero2a", "Player/hero3a", "Player/hero4a" ),
-				RightWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/hero0", "Player/hero1", "Player/hero2", "Player/hero3", "Player/hero4" ),
-				Dead = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/herod" )
-			};
-
-			lisaInvisibleAnimations = new PsychicAnimation
-			{
-				LeftStand = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Skills/Invisible/herov0a" ),
-				RightStand = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Skills/Invisible/herov0" ),
-				LeftWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Skills/Invisible/herov0a", "Skills/Invisible/herov1a", "Skills/Invisible/herov2a", "Skills/Invisible/herov3a", "Skills/Invisible/herov4a" ),
-				RightWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Skills/Invisible/herov0", "Skills/Invisible/herov1", "Skills/Invisible/herov2", "Skills/Invisible/herov3", "Skills/Invisible/herov4" ),
-				Dead = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Player/herod" )
-			};
 
 			lisaEntity.AddComponent<PsychicAnimation> ().CopyFrom ( lisaStandardAnimations );
 

@@ -53,6 +53,7 @@ namespace Psychic
 					SystemManager.SharedManager.RegisterSystem ( new MachineGunSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new SensorSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new BulletSystem () );
+					SystemManager.SharedManager.RegisterSystem ( new EnemyController () );
 
 				};
 				game.Run ();

@@ -22,7 +22,7 @@ namespace Psychic.Systems
 
 		public void PreExecute ()
 		{
-			tile = EntityManager.SharedManager.GetEntitiesByComponent<Tile> ().First ()?.GetComponent<Tile> ();
+			tile = EntityManager.SharedManager.GetEntitiesByComponent<Tile> ()?.FirstOrDefault ()?.GetComponent<Tile> ();
 		}
 
 		public void Execute ( Entity entity, GameTime gameTime )
@@ -38,6 +38,8 @@ namespace Psychic.Systems
 			if ( !fallable.IsFalling )
 			{
 				var positionScalar = ( transform.Position - new Vector2 ( 12 ) ) / 25;
+				if ( positionScalar.X - ( int ) positionScalar.X > float.Epsilon )
+					return;
 				if ( tile.TileData [ ( int ) positionScalar.Y + 1, ( int ) positionScalar.X ] == 0 )
 					fallable.IsFalling = true;
 				else
@@ -50,7 +52,7 @@ namespace Psychic.Systems
 				transform.Position += new Vector2 ( 0, 12.5f );
 				if ( ( int ) transform.Position.Y >= 100 )
 				{
-					transform.Position.Y = 100;
+					transform.Position.Y = 112;
 					fallable.DeadFlag = true;
 				}
 				else

@@ -39,7 +39,6 @@ namespace Psychic.Scenes
 		Entity targetEnemyEntity;
 		bool mcMovingStartLeft, mcMovingStartRight;
 		TimeSpan mcMovingElapsed;
-		bool mcMovingFall;
 
 		bool isGameOver = false, isInMenu = false;
 
@@ -147,6 +146,7 @@ namespace Psychic.Scenes
 						obj.AddComponent<SpriteAnimation> ();
 						obj.AddComponent<PsychicAnimation> ().CopyFrom ( enemyAnimations );
 						obj.AddComponent<Enemy> ().OriginalPosition = obj.GetComponent<Transform2D> ().Position;
+						obj.AddComponent<Fallable> ();
 						break;
 				}
 			}
@@ -311,8 +311,8 @@ namespace Psychic.Scenes
 		private void MindControlUpdate ( GameTime gameTime )
 		{
 			var pa = targetEnemyEntity.GetComponent<PsychicAnimation> ();
-			var enemyPosition = Mathf.Floor ( targetEnemyEntity.GetComponent<Transform2D> ().Position / 25 );
-			if ( !mcMovingFall && !mcMovingStartLeft && !mcMovingStartRight )
+			var enemyPosition = ( targetEnemyEntity.GetComponent<Transform2D> ().Position - new Vector2 ( 12, 12 ) ) / 25;
+			if ( !targetEnemyEntity.GetComponent<Fallable>().IsFalling && !mcMovingStartLeft && !mcMovingStartRight )
 			{
 				if ( InputManager.LeftInput )
 				{
@@ -344,12 +344,14 @@ namespace Psychic.Scenes
 					movingStartLeft = movingStartRight = false;
 				}
 			}
-			else
+			else if ( !targetEnemyEntity.GetComponent<Fallable> ().IsFalling )
 			{
 				mcMovingElapsed += gameTime.ElapsedGameTime;
-				if ( movingElapsed > TimeSpan.FromSeconds ( 0.1 ) )
+				if ( mcMovingElapsed > TimeSpan.FromSeconds ( 0.1 ) )
 				{
 					targetEnemyEntity.GetComponent<Transform2D> ().Position += new Vector2 ( 12.5f * ( mcMovingStartLeft ? -1 : 1 ), 0 );
+					enemyPosition = ( targetEnemyEntity.GetComponent<Transform2D> ().Position - new Vector2 ( 12, 12 ) ) / 25;
+
 					if ( enemyPosition.X - ( int ) enemyPosition.X <= float.Epsilon )
 					{
 						mcMovingElapsed = new TimeSpan ();
@@ -357,6 +359,15 @@ namespace Psychic.Scenes
 					}
 					else mcMovingElapsed -= TimeSpan.FromSeconds ( 0.1 );
 				}
+			}
+
+			if ( targetEnemyEntity.GetComponent<Fallable> ().DeadFlag )
+			{
+				pa.CurrentAnimationStatus = CurrentAnimationStatus.Dead;
+				targetEnemyEntity.GetComponent<Enemy> ().IsDead = true;
+				targetEnemyEntity.GetComponent<Enemy> ().IsControllingByPlayer = false;
+				usingMindControl = false;
+				targetEnemyEntity = null;
 			}
 		}
 
@@ -510,12 +521,12 @@ namespace Psychic.Scenes
 		private void CameraUpdate ( GameTime gameTime )
 		{
 			var transform = lisaEntity.GetComponent<Transform2D> ();
-			if ( transform.Position.X >= 100 && transform.Position.X <= ( tileData.GetLength ( 1 ) - 4 ) * 25 )
+			if ( transform.Position.X - 12 >= 100 && transform.Position.X <= ( tileData.GetLength ( 1 ) - 4 ) * 25 )
 			{
 				cameraEntity.GetComponent<Transform2D> ().Position
-					= new Vector2 ( transform.Position.X - 75, 0 );
+					= new Vector2 ( transform.Position.X - 11 - 75, 0 );
 			}
-			else if ( transform.Position.X < 100 )
+			else if ( transform.Position.X - 12 < 100 )
 			{
 				cameraEntity.GetComponent<Transform2D> ().Position = new Vector2 ( 0, 0 );
 			}
@@ -528,7 +539,7 @@ namespace Psychic.Scenes
 		private void DoGameOver ()
 		{
 			isGameOver = true;
-			lisaEntity.GetComponent<Transform2D>().Position += new Vector2 ( 0, 6.625f );
+			lisaEntity.GetComponent<Transform2D>().Position += new Vector2 ( 0, 6f );
 
 			var pa = lisaEntity.GetComponent<PsychicAnimation> ();
 			pa.CurrentAnimationStatus = CurrentAnimationStatus.Dead;

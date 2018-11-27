@@ -24,7 +24,7 @@ namespace Psychic.Systems
 
 		public void PreExecute ()
 		{
-			tile = EntityManager.SharedManager.GetEntitiesByComponent<Tile> ().First ().GetComponent<Tile> ();
+			tile = EntityManager.SharedManager.GetEntitiesByComponent<Tile> ()?.FirstOrDefault ()?.GetComponent<Tile> ();
 		}
 
 		public void Execute ( Entity entity, GameTime gameTime )
@@ -51,20 +51,22 @@ namespace Psychic.Systems
 				var offset = Math.Abs ( enemy.OriginalPosition.X - transform.Position.X ) / 25;
 				if ( offset >= 3 )
 					enemy.IsRightViewing = !enemy.IsRightViewing;
+
+				var posScalar = ( transform.Position - new Vector2 ( 12 ) ) / 25;
 				
 				if ( enemy.IsRightViewing )
 				{
-					if ( tile.TileData [ ( int ) transform.Position.Y / 25 + 1, ( int ) transform.Position.X / 25 + 1 ] == 0 )
+					if ( tile.TileData [ ( int ) posScalar.Y + 1, ( int ) posScalar.X + 1 ] == 0 )
 						enemy.IsRightViewing = !enemy.IsRightViewing;
-					else if ( tile.TileData [ ( int ) transform.Position.Y / 25, ( int ) transform.Position.X / 25 + 1 ] != 0 )
+					else if ( tile.TileData [ ( int ) posScalar.Y, ( int ) posScalar.X + 1 ] != 0 )
 						enemy.IsRightViewing = !enemy.IsRightViewing;
 					transform.Position.X += 12.5f;
 				}
 				else
 				{
-					if ( tile.TileData [ ( int ) transform.Position.Y / 25 + 1, ( int ) transform.Position.X / 25 - 1 ] == 0 )
+					if ( tile.TileData [ ( int ) posScalar.Y + 1, ( int ) posScalar.X - 1 ] == 0 )
 						enemy.IsRightViewing = !enemy.IsRightViewing;
-					else if ( tile.TileData [ ( int ) transform.Position.Y / 25, ( int ) transform.Position.X / 25 - 1 ] != 0 )
+					else if ( tile.TileData [ ( int ) posScalar.Y, ( int ) posScalar.X - 1 ] != 0 )
 						enemy.IsRightViewing = !enemy.IsRightViewing;
 					transform.Position.X -= 12.5f;
 				}

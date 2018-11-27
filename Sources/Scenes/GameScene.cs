@@ -44,8 +44,8 @@ namespace Psychic.Scenes
 
 		public override string Name => "GameScene";
 
-		PsychicAnimation lisaStandardAnimations, lisaInvisibleAnimations;
-		PsychicAnimation enemyAnimations;
+		readonly PsychicAnimation lisaStandardAnimations, lisaInvisibleAnimations;
+		readonly PsychicAnimation enemyAnimations;
 
 		public Queue<Message> MessageQueue = new Queue<Message> ();
 
@@ -364,6 +364,7 @@ namespace Psychic.Scenes
 			if ( targetEnemyEntity.GetComponent<Fallable> ().DeadFlag )
 			{
 				pa.CurrentAnimationStatus = CurrentAnimationStatus.Dead;
+				targetEnemyEntity.GetComponent<Transform2D> ().Position += new Vector2 ( 0, 8 );
 				targetEnemyEntity.GetComponent<Enemy> ().IsDead = true;
 				targetEnemyEntity.GetComponent<Enemy> ().IsControllingByPlayer = false;
 				usingMindControl = false;

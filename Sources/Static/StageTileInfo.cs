@@ -61,11 +61,11 @@ namespace Psychic.Static
 	public static class StageTileInfo
 	{
 		public static byte [,] Stage01 = {
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1 },
-			{ 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 2, 1, 1 },
-			{ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 1, 1, 1, 1, 0, 1, 2, 1, 0, 2, 1, 0, 2, 1, 1 }
+			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+			{ 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+			{ 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 2, 1, 1, 1 },
+			{ 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+			{ 1, 1, 1, 1, 0, 1, 2, 1, 0, 2, 1, 0, 2, 1, 1, 1 }
 		};
 		public static byte [,] Stage02 = {
 			{ 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -266,7 +266,13 @@ namespace Psychic.Static
 
 				case 3:
 					{
-
+						yield return new ObjectInfo () { ObjectType = ObjectType.Save, Position = new Vector2 ( 4, 3 ), Argument = 0 };
+						yield return new ObjectInfo () { ObjectType = ObjectType.Document, Position = new Vector2 ( 7, 1 ), Argument = 3 };
+						yield return new ObjectInfo () { ObjectType = ObjectType.Help, Position = new Vector2 ( 20, 3 ), Argument = 4 };
+						yield return new ObjectInfo () { ObjectType = ObjectType.Enemy, Position = new Vector2 ( 11, 1 ) };
+						yield return new ObjectInfo () { ObjectType = ObjectType.Enemy, Position = new Vector2 ( 18, 3 ) };
+						yield return new ObjectInfo () { ObjectType = ObjectType.Compresser, Position = new Vector2 ( 21, 3 ) };
+						yield return new ObjectInfo () { ObjectType = ObjectType.Door, Position = new Vector2 ( 23, 3 ) };
 					}
 					break;
 

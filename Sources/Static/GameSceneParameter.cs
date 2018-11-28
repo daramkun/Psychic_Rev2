@@ -8,7 +8,12 @@ namespace Psychic.Static
 {
 	public static class GameSceneParameter
 	{
-		public static int Stage = 1;
+		public static int Stage
+#if DEBUG
+			= 3;
+#else
+			= 1;
+#endif
 		public static bool [] Documents = new bool [ 10 ];
 
 		public static int HitPoint = 10;

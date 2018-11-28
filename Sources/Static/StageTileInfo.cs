@@ -260,6 +260,7 @@ namespace Psychic.Static
 						yield return new ObjectInfo () { ObjectType = ObjectType.Sensor, Position = new Vector2 ( 6, 1 ) };
 						yield return new ObjectInfo () { ObjectType = ObjectType.MachineGun, Position = new Vector2 ( 7, 1 ), ToRight = false };
 						yield return new ObjectInfo () { ObjectType = ObjectType.Enemy, Position = new Vector2 ( 18, 3 ) };
+						yield return new ObjectInfo () { ObjectType = ObjectType.Trap, Position = new Vector2 ( 22, 3 ) };
 					}
 					break;
 

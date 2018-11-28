@@ -5,6 +5,7 @@ using Daramee.Mint.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Psychic.Components.Items;
+using Psychic.Components.Traps;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Input;
 using Psychic.Components;
 using Psychic.Components.Enemies;
 using Psychic.Components.Items;
+using Psychic.Components.Traps;
 using Psychic.Entities;
 using Psychic.Input;
 using Psychic.Static;
@@ -148,6 +149,12 @@ namespace Psychic.Scenes
 						obj.AddComponent<Enemy> ().OriginalPosition = obj.GetComponent<Transform2D> ().Position;
 						obj.AddComponent<Fallable> ();
 						break;
+
+					case ObjectType.Trap:
+						obj.AddComponent<SpriteRender> ().Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Traps/Trap/Trap_Ready" );
+						obj.AddComponent<Trap> ();
+						obj.GetComponent<Transform2D> ().Position += new Vector2 ( 0, 8 );
+						break;
 				}
 			}
 
@@ -175,6 +182,11 @@ namespace Psychic.Scenes
 			sprite.Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Skills/Laser" );
 			teleportEntity.IsActived = false;
 
+			mindControlEntity = EntityManager.SharedManager.CreateEntity ();
+			mindControlEntity.AddComponent<Transform2D> ();
+			mindControlEntity.AddComponent<SpriteRender> ().Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Skills/ControlTarget" );
+			mindControlEntity.IsActived = false;
+
 			ui = new UserInterface ();
 
 			ProcessorManager.SharedManager.RegisterProcessor ( this );
@@ -187,6 +199,12 @@ namespace Psychic.Scenes
 
 		public void Process ( GameTime gameTime )
 		{
+			if ( usingMindControl && targetEnemyEntity != null && targetEnemyEntity.GetComponent<Enemy> ().IsDead )
+			{
+				usingMindControl = false;
+				mindControlEntity.IsActived = false;
+			}
+
 			if ( !lisaEntity.HasComponent<Message> () && !isGameOver
 				&& ( !usingTeleport && !usingMindControl ) )
 			{
@@ -330,6 +348,7 @@ namespace Psychic.Scenes
 				{
 					GameSceneParameter.UsingSkill = false;
 					usingMindControl = false;
+					mindControlEntity.IsActived = false;
 					targetEnemyEntity.GetComponent<Enemy> ().IsControllingByPlayer = false;
 				}
 				else
@@ -361,12 +380,14 @@ namespace Psychic.Scenes
 				}
 			}
 
+			mindControlEntity.GetComponent<Transform2D> ().Position = targetEnemyEntity.GetComponent<Transform2D> ().Position - new Vector2 ( 0, 18 );
 			if ( targetEnemyEntity.GetComponent<Fallable> ().DeadFlag )
 			{
 				pa.CurrentAnimationStatus = CurrentAnimationStatus.Dead;
 				targetEnemyEntity.GetComponent<Transform2D> ().Position += new Vector2 ( 0, 8 );
 				targetEnemyEntity.GetComponent<Enemy> ().IsDead = true;
 				targetEnemyEntity.GetComponent<Enemy> ().IsControllingByPlayer = false;
+				mindControlEntity.IsActived = false;
 				usingMindControl = false;
 				targetEnemyEntity = null;
 			}
@@ -396,9 +417,7 @@ namespace Psychic.Scenes
 			{
 				PlayerMoving ( gameTime );
 			}
-
-			//lisaEntity.GetComponent<Transform2D> ().Position
-			//	= playerPosition * new Vector2 ( 25, 25 ) + new Vector2 ( 12, 12 );
+			
 			CameraUpdate ( gameTime );
 		}
 
@@ -468,6 +487,8 @@ namespace Psychic.Scenes
 							lisaEntity.GetComponent<PsychicAnimation> ().CopyFrom ( lisaStandardAnimations );
 							usingMindControl = true;
 							targetEnemyEntity.GetComponent<Enemy> ().IsControllingByPlayer = true;
+							mindControlEntity.GetComponent<Transform2D> ().Position = targetEnemyEntity.GetComponent<Transform2D> ().Position - new Vector2 ( 0, 18 );
+							mindControlEntity.IsActived = true;
 						}
 						break;
 				}
@@ -537,7 +558,7 @@ namespace Psychic.Scenes
 			}
 		}
 
-		private void DoGameOver ()
+		public void DoGameOver ()
 		{
 			isGameOver = true;
 			lisaEntity.GetComponent<Transform2D>().Position += new Vector2 ( 0, 6f );

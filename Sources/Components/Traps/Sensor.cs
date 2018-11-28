@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Psychic.Components.Items
+namespace Psychic.Components.Traps
 {
 	public class Sensor : IComponent
 	{

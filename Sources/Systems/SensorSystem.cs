@@ -3,6 +3,7 @@ using Daramee.Mint.Entities;
 using Daramee.Mint.Systems;
 using Microsoft.Xna.Framework;
 using Psychic.Components.Items;
+using Psychic.Components.Traps;
 using Psychic.Static;
 using System;
 using System.Collections.Generic;

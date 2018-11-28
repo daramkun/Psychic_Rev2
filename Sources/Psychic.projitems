@@ -18,10 +18,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Key.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\MachineGun.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Save.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Components\Items\Sensor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Traps\Sensor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\PsychicAnimation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\SpriteTwinkle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Tile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Traps\Trap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\UserInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Input\InputManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\Message.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Systems\SensorSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\SpriteTwinkleSystem.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\TileRenderSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\TrapSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
@@ -57,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Components\Enemies\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Components\Traps\" />
     <Folder Include="$(MSBuildThisFileDirectory)Components\Objects\" />
   </ItemGroup>
 </Project>

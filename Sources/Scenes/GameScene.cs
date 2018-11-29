@@ -290,7 +290,8 @@ namespace Psychic.Scenes
 			}
 			else if ( InputManager.AInputDown )
 			{
-				if ( transform.Position != lisaEntity.GetComponent<Transform2D>().Position )
+				var playerTransform = lisaEntity.GetComponent<Transform2D> ();
+				if ( transform.Position != playerTransform.Position )
 				{
 					if ( tileData [ 0, ( int ) laserPosScalar.X ] == 3 ||
 						tileData [ 1, ( int ) laserPosScalar.X ] == 3 ||
@@ -298,7 +299,7 @@ namespace Psychic.Scenes
 						tileData [ 3, ( int ) laserPosScalar.X ] == 3 ||
 						tileData [ 4, ( int ) laserPosScalar.X ] == 3 )
 					{
-						transform.Position.X += transform.Position.X - lisaEntity.GetComponent<Transform2D> ().Position.X;
+						transform.Position.X += transform.Position.X - playerTransform.Position.X;
 						laserPosScalar = ( transform.Position - new Vector2 ( 12, 12 ) ) / 25;
 
 						if ( laserPosScalar.Y >= 2 )
@@ -307,7 +308,8 @@ namespace Psychic.Scenes
 							{
 								if ( tileData [ i, ( int ) laserPosScalar.X ] == 0 )
 								{
-									transform.Position.Y = i * 25 + 12;
+									playerTransform.Position.X = transform.Position.X;
+									playerTransform.Position.Y = i * 25 + 12;
 									break;
 								}
 							}
@@ -318,7 +320,8 @@ namespace Psychic.Scenes
 							{
 								if ( tileData [ i, ( int ) laserPosScalar.X ] == 0 )
 								{
-									transform.Position.Y = i * 25 + 12;
+									playerTransform.Position.X = transform.Position.X;
+									playerTransform.Position.Y = i * 25 + 12;
 									break;
 								}
 							}
@@ -330,13 +333,14 @@ namespace Psychic.Scenes
 						tileData [ 3, ( int ) laserPosScalar.X ] == 2 ||
 						tileData [ 4, ( int ) laserPosScalar.X ] == 2 ) )
 					{
-						lisaEntity.GetComponent<Transform2D> ().Position = teleportEntity.GetComponent<Transform2D> ().Position;
+						playerTransform.Position = teleportEntity.GetComponent<Transform2D> ().Position;
 						GameSceneParameter.SkillPoint -= 2;
 						usingTeleport = false;
 					}
 				}
 				GameSceneParameter.UsingSkill = false;
 				teleportEntity.IsActived = false;
+				usingTeleport = false;
 			}
 		}
 

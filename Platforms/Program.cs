@@ -54,6 +54,7 @@ namespace Psychic
 					SystemManager.SharedManager.RegisterSystem ( new MachineGunSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new SensorSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new TrapSystem () );
+					SystemManager.SharedManager.RegisterSystem ( new CompressorSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new BulletSystem () );
 					SystemManager.SharedManager.RegisterSystem ( new EnemyController () );
 

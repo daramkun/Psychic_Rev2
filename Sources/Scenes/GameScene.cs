@@ -47,6 +47,7 @@ namespace Psychic.Scenes
 
 		readonly PsychicAnimation lisaStandardAnimations, lisaInvisibleAnimations;
 		readonly PsychicAnimation enemyAnimations;
+		readonly Animation compressorAnimation;
 
 		public Queue<Message> MessageQueue = new Queue<Message> ();
 
@@ -78,6 +79,12 @@ namespace Psychic.Scenes
 				RightWalk = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Enemy/mon0", "Enemy/mon1", "Enemy/mon2", "Enemy/mon3" ),
 				Dead = new Animation ( TimeSpan.FromSeconds ( 0.1 ), "Enemy/mond" )
 			};
+
+			compressorAnimation = new Animation ( TimeSpan.FromSeconds ( 0.2 )
+				, "Traps/Compressor/Compressor1", "Traps/Compressor/Compressor2", "Traps/Compressor/Compressor3", "Traps/Compressor/Compressor4", "Traps/Compressor/Compressor5"
+				, "Traps/Compressor/Compressor5", "Traps/Compressor/Compressor5"
+				, "Traps/Compressor/Compressor4", "Traps/Compressor/Compressor3", "Traps/Compressor/Compressor2"
+				, "Traps/Compressor/Compressor1", "Traps/Compressor/Compressor1" );
 		}
 
 		protected override void Enter ()
@@ -154,6 +161,13 @@ namespace Psychic.Scenes
 						obj.AddComponent<SpriteRender> ().Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Traps/Trap/Trap_Ready" );
 						obj.AddComponent<Trap> ();
 						obj.GetComponent<Transform2D> ().Position += new Vector2 ( 0, 8 );
+						break;
+
+					case ObjectType.Compresser:
+						obj.AddComponent<SpriteRender> ();
+						obj.AddComponent<SpriteAnimation> ().Animation = compressorAnimation;
+						obj.AddComponent<Compressor> ();
+						obj.GetComponent<Transform2D> ().Position -= new Vector2 ( 0, 12.5f );
 						break;
 				}
 			}

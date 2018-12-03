@@ -18,10 +18,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{F7446BBF-D4FC-449E-A152-D2DAC642736A}"
 EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\..\GitHub\MintEngine\Daramee.Mint.Shared\Daramee.Mint.projitems*{5db8c87a-5ebd-43e2-8937-6b0046f7e312}*SharedItemsImports = 13
+		..\MintEngine\Daramee.Mint.Shared\Daramee.Mint.projitems*{5db8c87a-5ebd-43e2-8937-6b0046f7e312}*SharedItemsImports = 13
 		Sources\Psychic.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
-		..\..\GitHub\MintEngine\Daramee.Mint.Shared\Daramee.Mint.projitems*{baaf21af-3e99-47a7-89b4-4596ec4f9868}*SharedItemsImports = 4
+		..\MintEngine\Daramee.Mint.Shared\Daramee.Mint.projitems*{baaf21af-3e99-47a7-89b4-4596ec4f9868}*SharedItemsImports = 4
 		Sources\Psychic.projitems*{baaf21af-3e99-47a7-89b4-4596ec4f9868}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

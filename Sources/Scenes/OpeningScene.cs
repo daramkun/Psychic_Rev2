@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Psychic.Components;
 using Psychic.Input;
 using Psychic.Properties;
+using Psychic.Static;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -113,6 +114,7 @@ namespace Psychic.Scenes
 
 		private IEnumerator TransitionToGameScene ()
 		{
+			GameSceneParameter.Stage = 1;
 			SceneManager.SharedManager.Transition ( "GameScene" );
 			yield return null;
 		}

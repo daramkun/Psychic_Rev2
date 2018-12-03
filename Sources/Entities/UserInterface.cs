@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Psychic.Entities
 {
-	class UserInterface
+	public class UserInterface
 	{
 		Entity hpText, spText;
 		Entity hpFrame, hpBar;

@@ -27,8 +27,11 @@ namespace Psychic.Scenes
 	public class GameScene : Scene, IProcessor
 	{
 		byte [,] tileData;
+
 		Entity cameraEntity;
 		UserInterface ui;
+		InGameMenu menu;
+
 		Entity lisaEntity;
 		Entity teleportEntity;
 		Entity mindControlEntity;
@@ -41,7 +44,7 @@ namespace Psychic.Scenes
 		bool mcMovingStartLeft, mcMovingStartRight;
 		TimeSpan mcMovingElapsed;
 
-		bool isGameOver = false, isInMenu = false;
+		bool isGameOver = false;
 
 		public override string Name => "GameScene";
 
@@ -89,7 +92,7 @@ namespace Psychic.Scenes
 
 		protected override void Enter ()
 		{
-			isGameOver = isInMenu = false;
+			isGameOver = false;
 			movingStartLeft = movingStartRight = false;
 			usingTeleport = usingMindControl = false;
 			GameSceneParameter.Initialize ();
@@ -202,6 +205,7 @@ namespace Psychic.Scenes
 			mindControlEntity.IsActived = false;
 
 			ui = new UserInterface ();
+			menu = new InGameMenu ();
 
 			ProcessorManager.SharedManager.RegisterProcessor ( this );
 		}
@@ -213,13 +217,14 @@ namespace Psychic.Scenes
 
 		public void Process ( GameTime gameTime )
 		{
-			if ( usingMindControl && targetEnemyEntity != null && targetEnemyEntity.GetComponent<Enemy> ().IsDead )
+			if ( usingMindControl && targetEnemyEntity != null
+				&& targetEnemyEntity.GetComponent<Enemy> ().IsDead )
 			{
 				usingMindControl = false;
 				mindControlEntity.IsActived = false;
 			}
 
-			if ( !lisaEntity.HasComponent<Message> () && !isGameOver
+			if ( !lisaEntity.HasComponent<Message> () && ( !isGameOver && !menu.IsVisible )
 				&& ( !usingTeleport && !usingMindControl ) )
 			{
 				PlayerUpdate ( gameTime );
@@ -258,9 +263,9 @@ namespace Psychic.Scenes
 					SceneManager.SharedManager.Transition ( "MenuScene" );
 				}
 			}
-			else if ( isInMenu )
+			else if ( menu.IsVisible )
 			{
-
+				menu.Update ( gameTime );
 			}
 		}
 
@@ -529,6 +534,10 @@ namespace Psychic.Scenes
 				GameSceneParameter.CurrentSkill = 1;
 			else if ( InputService.SharedInputService.IsKeyDown ( Keys.D3 ) )
 				GameSceneParameter.CurrentSkill = 2;
+			else if ( InputManager.BackInputDown )
+			{
+				menu.IsVisible = true;
+			}
 			else
 			{
 				if ( pa.CurrentAnimationStatus == CurrentAnimationStatus.LeftWalk

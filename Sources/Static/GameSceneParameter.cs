@@ -10,7 +10,7 @@ namespace Psychic.Static
 	{
 		public static int Stage
 #if DEBUG
-			= 4;
+			= 1;
 #else
 			= 1;
 #endif

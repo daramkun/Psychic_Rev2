@@ -1,4 +1,5 @@
 ﻿using Daramee.Mint.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -32,9 +33,9 @@ namespace Psychic.Components
 			}
 		}
 
-		public static IEnumerable<string> CalculateMessageTextArea ( string text, SpriteFont font )
+		public static IEnumerable<string> CalculateTextArea ( string text, SpriteFont font, Vector2 area )
 		{
-			if ( string.IsNullOrEmpty ( text))
+			if ( string.IsNullOrEmpty ( text ) )
 			{
 				yield return "";
 				yield break;
@@ -47,12 +48,12 @@ namespace Psychic.Components
 			{
 				builder.Append ( q.Peek () );
 				var measure = font.MeasureString ( builder );
-				if ( measure.X > 168 )
+				if ( measure.X > area.X )
 				{
 					builder.Insert ( builder.Length - 1, '\n' );
 					measure = font.MeasureString ( builder );
 				}
-				if ( measure.Y > 36)
+				if ( measure.Y > area.Y )
 				{
 					builder.Remove ( builder.Length - 2, 2 );
 					yield return builder.ToString ();
@@ -63,6 +64,11 @@ namespace Psychic.Components
 
 			if ( builder.Length > 0 )
 				yield return builder.ToString ();
+		}
+
+		public static IEnumerable<string> CalculateMessageTextArea ( string text, SpriteFont font )
+		{
+			return CalculateTextArea ( text, font, new Vector2 ( 168, 36 ) );
 		}
 	}
 }

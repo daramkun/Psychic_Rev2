@@ -4,9 +4,14 @@ using Daramee.Mint.Entities;
 using Daramee.Mint.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Psychic.Components;
+using Psychic.Components.Items;
 using Psychic.Input;
+using Psychic.Properties;
+using Psychic.Static;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Psychic.Entities
@@ -20,7 +25,7 @@ namespace Psychic.Entities
 
 		Entity docuSide, docuTopBackground, docuTitleBackground, docuTitleText, docuDescription, docuCursor;
 		Entity [] documents;
-		int selectedDocumentIndex = 0;
+		int selectedDocumentIndex = 0, lineScroll = 0;
 		bool isInDocument;
 
 		public bool IsVisible
@@ -97,6 +102,13 @@ namespace Psychic.Entities
 			#endregion
 
 			#region Initialize Documents
+			docuDescription = EntityManager.SharedManager.CreateEntity ();
+			docuDescription.AddComponent<Transform2D> ().Position = new Vector2 ( 40, 70 );
+			var text = docuDescription.AddComponent<TextRender> ();
+			text.ForegroundColor = new Color ( 240, 240, 240 );
+			text.Font = Engine.SharedEngine.Content.Load<SpriteFont> ( "Fonts/Gulim8" );
+			text.IsCameraIndependency = true;
+
 			docuTopBackground = EntityManager.SharedManager.CreateEntity ();
 			docuTopBackground.AddComponent<Transform2D> ().Position = new Vector2 ( 35, 0 ) + new Vector2( 176 - 35, 70 ) / 2;
 			rect = docuTopBackground.AddComponent<RectangleRender> ();
@@ -121,20 +133,13 @@ namespace Psychic.Entities
 
 			docuTitleText = EntityManager.SharedManager.CreateEntity ();
 			docuTitleText.AddComponent<Transform2D> ().Position = new Vector2 ( 46, 7 );
-			var text = docuTitleText.AddComponent<TextRender> ();
+			text = docuTitleText.AddComponent<TextRender> ();
 			text.ForegroundColor = Color.Black;
 			text.Font = Engine.SharedEngine.Content.Load<SpriteFont> ( "Fonts/Gulim8" );
 			text.IsCameraIndependency = true;
 
-			docuDescription = EntityManager.SharedManager.CreateEntity ();
-			docuDescription.AddComponent<Transform2D> ().Position = new Vector2 ( 40, 70 );
-			text = docuDescription.AddComponent<TextRender> ();
-			text.ForegroundColor = new Color ( 240, 240, 240 );
-			text.Font = Engine.SharedEngine.Content.Load<SpriteFont> ( "Fonts/Gulim8" );
-			text.IsCameraIndependency = true;
-
 			docuCursor = EntityManager.SharedManager.CreateEntity ();
-			docuCursor.AddComponent<Transform2D> ().Position = new Vector2 ( 40, 22 ) + new Vector2 ( 25, 25 ) / 2;
+			docuCursor.AddComponent<Transform2D> ().Position = new Vector2 ( 38, 22 ) + new Vector2 ( 25, 25 ) / 2;
 			sprite = docuCursor.AddComponent<SpriteRender> ();
 			sprite.Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Menu/InGameMenu/DocumentCursor" );
 			sprite.IsCameraIndependency = true;
@@ -204,12 +209,68 @@ namespace Psychic.Entities
 			}
 			else if ( isInDocument )
 			{
+				var descText = docuDescription.GetComponent<TextRender> ();
 
+				if ( InputManager.LeftInputDown )
+				{
+					--selectedDocumentIndex;
+					if ( selectedDocumentIndex < 0 )
+						selectedDocumentIndex = 9;
+					lineScroll = 0;
+					UpdateDocument ();
+				}
+				else if ( InputManager.RightInputDown )
+				{
+					++selectedDocumentIndex;
+					if ( selectedDocumentIndex > 9 )
+						selectedDocumentIndex = 0;
+					lineScroll = 0;
+					UpdateDocument ();
+				}
+				else if ( InputManager.UpInputDown )
+				{
+					++lineScroll;
+					if ( lineScroll > 0 )
+						lineScroll = 0;
+				}
+				else if ( InputManager.DownInputDown )
+				{
+					--lineScroll;
+					var maxCount = -descText.Text.Count ( ( ch ) => ch == '\n' );
+					if ( lineScroll < maxCount )
+						lineScroll = maxCount;
+				}
+				else if ( InputManager.BackInputDown )
+				{
+					IsDocumentVisible = false;
+					IsMenuVisible = true;
+				}
+
+				docuCursor.GetComponent<Transform2D> ().Position = new Vector2 ( 38, 22 ) + new Vector2 ( 25, 25 ) / 2
+					+ new Vector2 ( ( selectedDocumentIndex % 5 ) * 28, ( selectedDocumentIndex / 5 ) * 24 );
+				docuDescription.GetComponent<Transform2D> ().Position = new Vector2 ( 40, 70 ) + descText.Font.MeasureString ( descText.Text ) / 2
+					+ new Vector2 ( 0, 13 * lineScroll );
 			}
+		}
+
+		private void UpdateDocument ()
+		{
+			var titleText = docuTitleText.GetComponent<TextRender> ();
+			titleText.Text = GameSceneParameter.Documents [ selectedDocumentIndex ]
+				? Resources.ResourceManager.GetString ( string.Format ( "Document_{0:00}_Title", selectedDocumentIndex + 1 ) )
+				: Resources.Document_DidntTakeDoc;
+			docuTitleText.GetComponent<Transform2D> ().Position = new Vector2 ( 46, 7 ) + titleText.Font.MeasureString ( titleText.Text ) / 2;
+
+			var descText = docuDescription.GetComponent<TextRender> ();
+			descText.Text = GameSceneParameter.Documents [ selectedDocumentIndex ]
+				? Resources.ResourceManager.GetString ( string.Format ( "Document_{0:00}_Desc", selectedDocumentIndex + 1 ) )
+				: Resources.Document_DidntTakeDoc;
+			descText.Text = Message.CalculateTextArea ( descText.Text, descText.Font, new Vector2 ( 136, 2000 ) ).FirstOrDefault ();
 		}
 
 		private void DoDisplayDocuments ()
 		{
+			UpdateDocument ();
 			IsMenuVisible = false;
 			IsDocumentVisible = true;
 		}

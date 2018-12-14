@@ -427,7 +427,7 @@ namespace Psychic.Scenes
 			}
 
 			var fallable = lisaEntity.GetComponent<Fallable> ();
-			if ( fallable.DeadFlag )
+			if ( fallable.DeadFlag || GameSceneParameter.HitPoint <= 0 )
 			{
 				DoGameOver ();
 			}

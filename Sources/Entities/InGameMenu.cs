@@ -26,7 +26,14 @@ namespace Psychic.Entities
 		Entity docuSide, docuTopBackground, docuTitleBackground, docuTitleText, docuDescription, docuCursor;
 		Entity [] documents;
 		int selectedDocumentIndex = 0, lineScroll = 0;
-		bool isInDocument;
+
+		Entity helpSide, menuInfoImageEntity;
+		readonly Texture2D [] infoImages = new Texture2D [ 5 ];
+		int selectedInfoIndex = 0;
+		
+		Entity optionsSide, menuOptionTextEntity, menuOptionCursorEntity;
+
+		bool isInDocument, isInHelp, isInOptions;
 
 		public bool IsVisible
 		{
@@ -36,13 +43,15 @@ namespace Psychic.Entities
 				if ( value )
 				{
 					background.IsActived = IsMenuVisible = isVisible = true;
-					isInDocument = false;
+					isInDocument = isInHelp = isInOptions = false;
 				}
 				else
 				{
 					background.IsActived
 						= IsMenuVisible
 						= IsDocumentVisible
+						= IsHelpVisible
+						= IsOptionsVisible
 						= isVisible = false;
 				}
 			}
@@ -68,6 +77,25 @@ namespace Psychic.Entities
 					documents [ i ].IsActived = value;
 				selectedDocumentIndex = 0;
 				isInDocument = value;
+			}
+		}
+
+		bool IsHelpVisible
+		{
+			set
+			{
+				helpSide.IsActived = menuInfoImageEntity.IsActived = value;
+				selectedInfoIndex = 0;
+				isInHelp = value;
+			}
+		}
+
+		bool IsOptionsVisible
+		{
+			set
+			{
+				optionsSide.IsActived = menuOptionTextEntity.IsActived = menuOptionCursorEntity.IsActived = value;
+				isInOptions = value;
 			}
 		}
 
@@ -102,6 +130,12 @@ namespace Psychic.Entities
 			#endregion
 
 			#region Initialize Documents
+			docuSide = EntityManager.SharedManager.CreateEntity ();
+			docuSide.AddComponent<Transform2D> ().Position = new Vector2 ( 35, 178 ) / 2;
+			sprite = docuSide.AddComponent<SpriteRender> ();
+			sprite.Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Menu/InGameMenu/menu2" );
+			sprite.IsCameraIndependency = true;
+
 			docuDescription = EntityManager.SharedManager.CreateEntity ();
 			docuDescription.AddComponent<Transform2D> ().Position = new Vector2 ( 40, 70 );
 			var text = docuDescription.AddComponent<TextRender> ();
@@ -116,12 +150,6 @@ namespace Psychic.Entities
 			rect.Size = new Vector2 ( 176 - 35, 70 );
 			rect.Color = Color.Black;
 			rect.IsCameraIndependency = true;
-
-			docuSide = EntityManager.SharedManager.CreateEntity ();
-			docuSide.AddComponent<Transform2D> ().Position = new Vector2 ( 35, 178 ) / 2;
-			sprite = docuSide.AddComponent<SpriteRender> ();
-			sprite.Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Menu/InGameMenu/menu2" );
-			sprite.IsCameraIndependency = true;
 
 			docuTitleBackground = EntityManager.SharedManager.CreateEntity ();
 			docuTitleBackground.AddComponent<Transform2D> ().Position = new Vector2 ( 44, 5 ) + new Vector2 ( 120, 15 ) / 2;
@@ -158,12 +186,52 @@ namespace Psychic.Entities
 			}
 			#endregion
 
+			#region Initialize Help
+			helpSide = EntityManager.SharedManager.CreateEntity ();
+			helpSide.AddComponent<Transform2D> ().Position = new Vector2 ( 35, 178 ) / 2;
+			sprite = helpSide.AddComponent<SpriteRender> ();
+			sprite.Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Menu/InGameMenu/menu3" );
+			sprite.IsCameraIndependency = true;
+
+			for ( int i = 1; i <= 5; ++i )
+				infoImages [ i - 1 ] = Engine.SharedEngine.Content.Load<Texture2D> ( $"Menu/Information/{i}" );
+
+			menuInfoImageEntity = EntityManager.SharedManager.CreateEntity ();
+			menuInfoImageEntity.AddComponent<Transform2D> ().Position = new Vector2 ( 55 + 98 / 2, 32 + 116 / 2 );
+			sprite = menuInfoImageEntity.AddComponent<SpriteRender> ();
+			sprite.Sprite = infoImages [ 0 ];
+			sprite.IsCameraIndependency = true;
+			#endregion
+
+			#region Initialize Options
+			optionsSide = EntityManager.SharedManager.CreateEntity ();
+			optionsSide.AddComponent<Transform2D> ().Position = new Vector2 ( 35, 178 ) / 2;
+			sprite = optionsSide.AddComponent<SpriteRender> ();
+			sprite.Sprite = Engine.SharedEngine.Content.Load<Texture2D> ( "Menu/InGameMenu/menu4" );
+			sprite.IsCameraIndependency = true;
+
+			menuOptionTextEntity = EntityManager.SharedManager.CreateEntity ();
+			text = menuOptionTextEntity.AddComponent<TextRender> ();
+			text.Font = Engine.SharedEngine.Content.Load<SpriteFont> ( "Fonts/Gulim8" );
+			text.Text = Resources.Option_Text;
+			text.IsCameraIndependency = true;
+			menuOptionTextEntity.AddComponent<Transform2D> ().Position = new Vector2 ( 70, 64 ) + text.Font.MeasureString ( Resources.Option_Text ) / 2;
+			
+			menuOptionCursorEntity = EntityManager.SharedManager.CreateEntity ();
+			menuOptionCursorEntity.AddComponent<Transform2D> ().Position = new Vector2 ( 112, 90 );
+			rect = menuOptionCursorEntity.AddComponent<RectangleRender> ();
+			rect.Size = new Vector2 ( 20, 2 );
+			rect.Fill = true;
+			rect.Color = Color.Red;
+			rect.IsCameraIndependency = true;
+			#endregion
+
 			IsVisible = false;
 		}
 
 		public void Update ( GameTime gameTime )
 		{
-			if ( !isInDocument )
+			if ( !isInDocument && !isInHelp && !isInOptions )
 			{
 				cursor.GetComponent<Transform2D> ().Position = new Vector2 ( 70, 41 + 8.5f ) + new Vector2 ( 0, 27 * selectedMenuIndex );
 
@@ -251,6 +319,40 @@ namespace Psychic.Entities
 				docuDescription.GetComponent<Transform2D> ().Position = new Vector2 ( 40, 70 ) + descText.Font.MeasureString ( descText.Text ) / 2
 					+ new Vector2 ( 0, 13 * lineScroll );
 			}
+			else if ( isInHelp )
+			{
+				if ( InputManager.BackInputDown )
+				{
+					IsHelpVisible = false;
+					IsMenuVisible = true;
+				}
+				if ( InputManager.LeftInputDown )
+				{
+					--selectedInfoIndex;
+					if ( selectedInfoIndex < 0 )
+						selectedInfoIndex = 4;
+				}
+				if ( InputManager.RightInputDown )
+				{
+					++selectedInfoIndex;
+					if ( selectedInfoIndex > 4 )
+						selectedInfoIndex = 0;
+				}
+				menuInfoImageEntity.GetComponent<SpriteRender> ().Sprite = infoImages [ selectedInfoIndex ];
+			}
+			else if ( isInOptions )
+			{
+				if ( InputManager.BackInputDown )
+				{
+					IsOptionsVisible = false;
+					IsMenuVisible = true;
+				}
+				if ( InputManager.LeftInputDown || InputManager.RightInputDown )
+				{
+					Options.IsAudioEnabled = !Options.IsAudioEnabled;
+					menuOptionCursorEntity.GetComponent<Transform2D> ().Position = new Vector2 ( 112 + ( Options.IsAudioEnabled ? 0 : 27 ), 90 );
+				}
+			}
 		}
 
 		private void UpdateDocument ()
@@ -278,13 +380,13 @@ namespace Psychic.Entities
 		private void DoDisplayHelp ()
 		{
 			IsMenuVisible = false;
-
+			IsHelpVisible = true;
 		}
 
 		private void DoDisplayOptions ()
 		{
 			IsMenuVisible = false;
-
+			IsOptionsVisible = true;
 		}
 	}
 }

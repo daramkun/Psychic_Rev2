@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2048
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Psychic", "Sources\Psychic.shproj", "{A0CDBD0E-3A41-42B7-9425-A838BC2C7383}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Psychic.Windows", "Platforms\Psychic.Windows.csproj", "{BAAF21AF-3E99-47A7-89B4-4596EC4F9868}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{DE8988B7-8351-4E2E-B65C-69FC58A60F6D}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Daramee.Mint.Shared", "..\MintEngine\Daramee.Mint.Shared\Daramee.Mint.Shared.shproj", "{5DB8C87A-5EBD-43E2-8937-6B0046F7E312}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Daramee.Mint.Shared", "Libraries\MintEngine\Daramee.Mint.Shared\Daramee.Mint.Shared.shproj", "{5DB8C87A-5EBD-43E2-8937-6B0046F7E312}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game", "Game", "{284C88DC-03C3-45A6-B1CD-605B214262B7}"
 EndProject
@@ -17,37 +15,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{F7446BBF-D4FC-449E-A152-D2DAC642736A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Psychic.Windows", "Platforms\Psychic.Windows\Psychic.Windows.csproj", "{E0CD17C9-5B60-40E8-B2B8-BB726540A94C}"
+EndProject
 Global
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\MintEngine\Daramee.Mint.Shared\Daramee.Mint.projitems*{5db8c87a-5ebd-43e2-8937-6b0046f7e312}*SharedItemsImports = 13
+		Libraries\MintEngine\Daramee.Mint.Shared\Daramee.Mint.projitems*{5db8c87a-5ebd-43e2-8937-6b0046f7e312}*SharedItemsImports = 13
 		Sources\Psychic.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
-		..\MintEngine\Daramee.Mint.Shared\Daramee.Mint.projitems*{baaf21af-3e99-47a7-89b4-4596ec4f9868}*SharedItemsImports = 4
-		Sources\Psychic.projitems*{baaf21af-3e99-47a7-89b4-4596ec4f9868}*SharedItemsImports = 4
+		Libraries\MintEngine\Daramee.Mint.Shared\Daramee.Mint.projitems*{e0cd17c9-5b60-40e8-b2b8-bb726540a94c}*SharedItemsImports = 5
+		Sources\Psychic.projitems*{e0cd17c9-5b60-40e8-b2b8-bb726540a94c}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BAAF21AF-3E99-47A7-89B4-4596EC4F9868}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAAF21AF-3E99-47A7-89B4-4596EC4F9868}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAAF21AF-3E99-47A7-89B4-4596EC4F9868}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAAF21AF-3E99-47A7-89B4-4596EC4F9868}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0CD17C9-5B60-40E8-B2B8-BB726540A94C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0CD17C9-5B60-40E8-B2B8-BB726540A94C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0CD17C9-5B60-40E8-B2B8-BB726540A94C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0CD17C9-5B60-40E8-B2B8-BB726540A94C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A0CDBD0E-3A41-42B7-9425-A838BC2C7383} = {F7446BBF-D4FC-449E-A152-D2DAC642736A}
-		{BAAF21AF-3E99-47A7-89B4-4596EC4F9868} = {776A44F6-889B-4250-819D-3F8D95F1CC3A}
 		{5DB8C87A-5EBD-43E2-8937-6B0046F7E312} = {DE8988B7-8351-4E2E-B65C-69FC58A60F6D}
 		{776A44F6-889B-4250-819D-3F8D95F1CC3A} = {284C88DC-03C3-45A6-B1CD-605B214262B7}
 		{F7446BBF-D4FC-449E-A152-D2DAC642736A} = {284C88DC-03C3-45A6-B1CD-605B214262B7}
+		{E0CD17C9-5B60-40E8-B2B8-BB726540A94C} = {776A44F6-889B-4250-819D-3F8D95F1CC3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {48A7E86E-1664-4320-8C8F-DC53EDDF2DD9}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

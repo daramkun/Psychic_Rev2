@@ -1,0 +1,3 @@
+[submodule "Libraries/MintEngine"]
+	path = Libraries/MintEngine
+	url = git@github.com:daramkun/MintEngine.git

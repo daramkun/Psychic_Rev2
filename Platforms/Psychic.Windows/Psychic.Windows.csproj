@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <AssemblyName>Psychic.Windows</AssemblyName>
+    <RootNamespace>Psychic</RootNamespace>
+    <PackageId>Psychic</PackageId>
+    <Authors>Team ReplingCube</Authors>
+    <Product>Psychic for Windows</Product>
+    <Copyright>Copyright © 2008, 2018, 2021 Team ReplingCube All Rights reserved</Copyright>
+    <Description>Psychic The Game</Description>
+    <PackageIcon>Icon.ico</PackageIcon>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>D:\Projects\Psychic_Rev2\Build\</OutputPath>
+  </PropertyGroup>
+
+  <Import Project="..\..\Sources\Psychic.projitems" Label="Shared" />
+
+  <Import Project="..\..\Libraries\MintEngine\Daramee.Mint.Shared\Daramee.Mint.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.0.1641" />
+    <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.0.1641" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Icon.ico">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
